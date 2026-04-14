@@ -1,0 +1,77 @@
+package com.example.tokomputer
+
+import android.content.Intent
+import android.os.Bundle
+import android.widget.ImageButton
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.navigation.NavigationView
+
+class CategoriesActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_categories)
+
+        val drawer = findViewById<androidx.drawerlayout.widget.DrawerLayout>(R.id.drawerLayoutCat)
+        val navView = findViewById<NavigationView>(R.id.navigationViewCat)
+        val btnCart = findViewById<ImageButton>(R.id.btnCartCat)
+
+        // Card click listeners
+        findViewById<androidx.cardview.widget.CardView>(R.id.cardKomputer).setOnClickListener {
+            val i = Intent(this, CategoryListActivity::class.java)
+            i.putExtra("category","komputer")
+            startActivity(i)
+        }
+        findViewById<androidx.cardview.widget.CardView>(R.id.cardLaptop).setOnClickListener {
+            val i = Intent(this, CategoryListActivity::class.java)
+            i.putExtra("category","laptop")
+            startActivity(i)
+        }
+        findViewById<androidx.cardview.widget.CardView>(R.id.cardKomponen).setOnClickListener {
+            val i = Intent(this, CategoryListActivity::class.java)
+            i.putExtra("category","komponen")
+            startActivity(i)
+        }
+
+        btnCart.setOnClickListener {
+            startActivity(Intent(this, com.example.tokomputer.order.OrderActivity::class.java))
+        }
+
+        navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_komputer -> {
+                    val i = Intent(this, CategoryListActivity::class.java)
+                    i.putExtra("category", "komputer")
+                    startActivity(i)
+                }
+                R.id.nav_laptop -> {
+                    val i = Intent(this, CategoryListActivity::class.java)
+                    i.putExtra("category", "laptop")
+                    startActivity(i)
+                }
+                R.id.nav_komponen -> {
+                    val i = Intent(this, CategoryListActivity::class.java)
+                    i.putExtra("category", "komponen")
+                    startActivity(i)
+                }
+                R.id.nav_home -> {
+                    val i = Intent(this, MainActivity::class.java)
+                    startActivity(i)
+                }
+                R.id.nav_member -> {
+                    val i = Intent(this, MemberActivity::class.java)
+                    startActivity(i)
+                }
+                R.id.nav_logout -> {
+                    SharedPrefManager.clearLogin()
+                    val i = Intent(this, LoginActivity::class.java)
+                    startActivity(i)
+                }
+                R.id.nav_tentang -> {
+                    startActivity(Intent(this, AboutActivity::class.java))
+                }
+            }
+            drawer.closeDrawers()
+            true
+        }
+    }
+}

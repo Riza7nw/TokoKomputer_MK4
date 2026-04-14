@@ -1,0 +1,113 @@
+<resources>
+    <string name="app_name">TOKOMPUTER</string>
+    <string name="login_signup"><![CDATA[Login & Signup]]></string>
+
+    <!-- Product detail strings -->
+    <string name="product_name_asus">ASUS ROG STRIX G16</string>
+    <string name="product_price_asus">Rp25.575.999</string>
+    <string name="buy_now">Beli Sekarang</string>
+    <string name="product_desc">Laptop gaming premium dengan performa tinggi untuk gaming dan content creation.</string>
+
+    <string name="specs_asus_rog_strix_g16"><![CDATA[
+• Prosesor (CPU): Intel Core i9-14900HX (sumber: alvatech.co.id)
+
+• Grafis (GPU): NVIDIA GeForce RTX 4070 Laptop 8GB GDDR6 (sumber: alvatech.co.id)
+  - ROG Boost: 2.225 MHz @ 140W
+  - Boost Clock Standar: ~2.175 MHz + OC 50 MHz + Dynamic Boost
+
+• Memori (RAM): 32 GB DDR5-5600 (2 × 16 GB SO-DIMM)
+  - Maksimal 32 GB menurut listing toko.
+
+• Penyimpanan (Storage): 1 TB PCIe 4.0 NVMe M.2 SSD
+
+• Layar (Display): 16" ROG Nebula Display
+  - Resolusi: QHD+ (2560 × 1600)
+  - Rasio: 16:10
+  - Refresh rate: 240 Hz
+  - Response Time: 3 ms
+  - Kecerahan: 500 nits (peak)
+  - Color gamut: 100% DCI-P3, Pantone-Validated
+
+• Sistem Operasi (OS): Windows 11 Home + Office Home & Student 2021
+
+• Audio:
+  - Teknologi AI noise-canceling
+  - Dolby Atmos
+  - Speaker: 2 speaker + Smart Amp
+  - Hi-Res certified
+
+• Kamera & Mikrofon: Webcam 720p HD
+
+• Keyboard: Chiclet keyboard per-key RGB (per tombol dapat diatur warna)
+
+• Konektivitas & Port:
+  - RJ45 LAN (10/100/1000 Mbps)
+  - 1× Thunderbolt 4 (dengan DisplayPort)
+  - 1× USB-C 3.2 Gen 2 (dengan DisplayPort, Power Delivery, G-Sync)
+  - 2× USB-A 3.2 Gen 2
+  - HDMI 2.1 FRL
+  - 3.5 mm jack audio combo
+  - Wi-Fi 6E (802.11ax) 2×2 + Bluetooth 5.3
+
+• Baterai: 90 Wh, 4-cell Li-ion
+  - Pengisian cepat: bisa dari 0 → 50% dalam ~30 menit
+
+• Dimensi & Berat: Tidak ditemukan data pasti berat di spesifikasi toko (sumber Alvatech mencantumkan "Weight 8 kg" — kemungkinan typo)
+
+• Garansi: 2 Tahun Global Warranty + 1 Tahun VIP Perfect Warranty (Alvatech)
+]]></string>
+
+    <string name="contact_address">Jl. Mangga Dua No. 12, RT 04/RW 06, Mangga Dua Selatan, Jakarta</string>
+    <string name="contact_info">Kontak: 0856-4774-6236 | Email: tokomputer@gmail.com</string>
+
+    <!-- Item product defaults -->
+    <string name="product_image">Gambar produk</string>
+    <string name="default_product_name">Produk</string>
+    <string name="btn_view">View</string>
+
+    <!-- Order strings -->
+    <string name="order_default_name">Nama Produk</string>
+    <string name="order_default_price">Rp0</string>
+    <string name="order_btn_decrease">-</string>
+    <string name="order_btn_increase">+</string>
+    <string name="order_qty_default">1</string>
+    <string name="order_item_total">Rp0</string>
+
+    <!-- Category strings -->
+    <string name="kategori_produk">Kategori Produk</string>
+    <string name="cari_hint">Cari produk, merk, atau spesifikasi</string>
+
+    <string name="komputer_label">Komputer</string>
+    <string name="komputer_sub">Desktop &amp; PC Gaming</string>
+
+    <string name="laptop_label">Laptop</string>
+    <string name="laptop_sub">Tipis, ringkas, performa tinggi</string>
+
+    <string name="komponen_label">Komponen</string>
+    <string name="komponen_sub">GPU, Motherboard, RAM</string>
+
+    <!-- About page strings -->
+    <string name="about_title">Tentang Kami – TokoMputer</string>
+    <string name="about_description">TokoMputer adalah toko komputer yang menjual komputer, laptop, dan seluruh komponen komputer. Berdiri sejak tahun 2020. Fokus pada kualitas, keaslian produk, dan layanan cepat.</string>
+    <string name="about_vision">Menjadi toko komputer paling terpercaya dan lengkap untuk semua kebutuhan teknologi.</string>
+    <string name="misi_label">Misi</string>
+    <string name="about_mission">• Menyediakan produk original berkualitas tinggi.\n• Memberikan layanan cepat dan responsif.\n• Menawarkan harga yang kompetitif.\n• Membantu pelanggan memilih perangkat sesuai kebutuhan.</string>
+    <string name="about_services_title">Layanan yang Disediakan</string>
+    <string name="about_services">• Penjualan komputer rakitan\n• Penjualan laptop berbagai merek\n• Penjualan sparepart dan komponen (RAM, SSD, GPU, PSU, Motherboard)\n• Jasa rakit PC\n• Servis komputer &amp; laptop</string>
+    <string name="about_advantages_title">Keunggulan Toko</string>
+    <string name="about_advantages">• Produk 100% original bergaransi\n• Pengiriman cepat dan aman\n• Customer service 24/7\n• Banyak promo dan diskon\n• Bisa custom PC sesuai budget</string>
+    <string name="about_why_title">Kenapa Harus Kami?</string>
+    <string name="about_why_1">• Stok lengkap</string>
+    <string name="about_why_2">• Harga transparan</string>
+    <string name="about_why_3">• Teknisi berpengalaman</string>
+    <string name="about_why_4">• Banyak pilihan brand terkenal</string>
+
+    <string name="about_contact_title">Kontak Kami</string>
+    <string name="about_contact_email">Email: tokomputer@gmail.com</string>
+    <string name="about_contact_phone">Telepon: 0856-4774-6236</string>
+    <string name="about_contact_location">Lokasi: Jl. Mangga Dua No. 12, RT 04/RW 06, Mangga Dua Selatan, Jakarta</string>
+
+    <!-- Content descriptions -->
+    <string name="cd_open_drawer">Buka menu</string>
+    <string name="cd_cart">Buka keranjang</string>
+</resources>
