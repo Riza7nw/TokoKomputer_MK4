@@ -2,18 +2,18 @@ package com.example.tokomputer
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.lifecycleScope
+
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tokomputer.adapter.ProductAdapter
 import com.example.tokomputer.model.Product
 import com.google.android.material.navigation.NavigationView
-import kotlinx.coroutines.launch
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        testingSupabase()
+
 
         // Initialize SharedPrefManager
         SharedPrefManager.init(this)
@@ -111,23 +111,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showToast(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-    }
+//    private fun showToast(msg: String) {
+//        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+//    }
 
-    private fun testingSupabase() {
-        Log.d("SUPABASE_TEST", "Memulai koneksi...") // Log awal untuk tes
-        lifecycleScope.launch {
-            try {
-                testConnection()
-                Log.d("SUPABASE_TEST", "Fungsi testConnection() selesai dipanggil")
-            } catch (e: Exception) {
-                // Ini akan menangkap error koneksi, internet, atau library missing
-                Log.e("SUPABASE_TEST", "Koneksi Gagal: ${e.message}")
-                e.printStackTrace()
-            }
-        }
-    }
+
 
     private fun sampleProducts(): List<Product> {
         return listOf(
