@@ -18,17 +18,18 @@ class CategoriesActivity : AppCompatActivity() {
         // Card click listeners
         findViewById<androidx.cardview.widget.CardView>(R.id.cardKomputer).setOnClickListener {
             val i = Intent(this, CategoryListActivity::class.java)
-            i.putExtra("category","komputer")
+            i.putExtra(Extras.CATEGORY,"komputer")
             startActivity(i)
         }
         findViewById<androidx.cardview.widget.CardView>(R.id.cardLaptop).setOnClickListener {
-            val i = Intent(this, CategoryListActivity::class.java)
-            i.putExtra("category","laptop")
+            // Show brands for laptops first
+            val i = Intent(this, BrandListActivity::class.java)
+            i.putExtra(Extras.CATEGORY,"laptop")
             startActivity(i)
         }
         findViewById<androidx.cardview.widget.CardView>(R.id.cardKomponen).setOnClickListener {
-            val i = Intent(this, CategoryListActivity::class.java)
-            i.putExtra("category","komponen")
+            // For komponen, show subcategories first
+            val i = Intent(this, SubCategoryListActivity::class.java)
             startActivity(i)
         }
 
@@ -38,20 +39,8 @@ class CategoriesActivity : AppCompatActivity() {
 
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.nav_komputer -> {
-                    val i = Intent(this, CategoryListActivity::class.java)
-                    i.putExtra("category", "komputer")
-                    startActivity(i)
-                }
-                R.id.nav_laptop -> {
-                    val i = Intent(this, CategoryListActivity::class.java)
-                    i.putExtra("category", "laptop")
-                    startActivity(i)
-                }
-                R.id.nav_komponen -> {
-                    val i = Intent(this, CategoryListActivity::class.java)
-                    i.putExtra("category", "komponen")
-                    startActivity(i)
+                R.id.nav_categories -> {
+                    // already on CategoriesActivity; do nothing
                 }
                 R.id.nav_home -> {
                     val i = Intent(this, MainActivity::class.java)

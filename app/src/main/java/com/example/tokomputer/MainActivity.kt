@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         rvProducts = findViewById(R.id.rvProducts)
         drawerLayout = findViewById(R.id.drawerLayout)
         navView = findViewById(R.id.navigationView)
-        btnMenu = findViewById(R.id.btnMenu)
+        btnMenu = findViewById(R.id.btnMenu3)
         btnCart = findViewById(R.id.btnCart)
 
         // Setup RecyclerView
@@ -46,13 +46,13 @@ class MainActivity : AppCompatActivity() {
         val products = sampleProducts()
         val adapter = ProductAdapter(products) { product ->
             val intent = Intent(this, ProductDetailActivity::class.java).apply {
-                putExtra("id", product.id)
-                putExtra("name", product.name)
-                putExtra("price", product.price)
-                putExtra("image", product.imageRes)
-                product.desc?.let { putExtra("desc", it) }
-                product.specsResId?.let { putExtra("specsResId", it) }
-                product.specsText?.let { putExtra("specsText", it) }
+                putExtra(Extras.PRODUCT_ID, product.id)
+                putExtra(Extras.PRODUCT_NAME, product.name)
+                putExtra(Extras.PRODUCT_PRICE, product.price)
+                putExtra(Extras.PRODUCT_IMAGE, product.imageRes)
+                product.desc?.let { putExtra(Extras.PRODUCT_DESC, it) }
+                product.specsResId?.let { putExtra(Extras.PRODUCT_SPECS_RES_ID, it) }
+                product.specsText?.let { putExtra(Extras.PRODUCT_SPECS_TEXT, it) }
             }
             startActivity(intent)
         }
@@ -82,20 +82,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_home -> {
                     // we're already on main; just close drawer
                 }
-                R.id.nav_komputer -> {
-                    val i = Intent(this, CategoryListActivity::class.java)
-                    i.putExtra("category", "komputer")
-                    startActivity(i)
-                }
-                R.id.nav_laptop -> {
-                    val i = Intent(this, CategoryListActivity::class.java)
-                    i.putExtra("category", "laptop")
-                    startActivity(i)
-                }
-                R.id.nav_komponen -> {
-                    val i = Intent(this, CategoryListActivity::class.java)
-                    i.putExtra("category", "komponen")
-                    startActivity(i)
+                R.id.nav_categories -> {
+                    // Open the single categories overview activity
+                    startActivity(Intent(this, CategoriesActivity::class.java))
                 }
                 R.id.nav_tentang -> {
                     startActivity(Intent(this, AboutActivity::class.java))

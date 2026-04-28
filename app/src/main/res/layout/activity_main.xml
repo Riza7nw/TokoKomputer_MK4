@@ -37,7 +37,7 @@
                     android:orientation="horizontal">
 
                     <ImageButton
-                        android:id="@+id/btnMenu"
+                        android:id="@+id/btnMenu3"
                         android:layout_width="75dp"
                         android:layout_height="60dp"
                         android:background="?attr/selectableItemBackgroundBorderless"

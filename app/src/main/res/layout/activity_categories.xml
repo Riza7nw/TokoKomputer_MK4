@@ -15,65 +15,64 @@
         android:layout_height="match_parent">
 
         <!-- Header -->
+
+        <!-- Search bar -->
+
         <ImageButton
             android:id="@+id/btnMenu3"
             android:layout_width="80dp"
-            android:layout_height="64dp"
+            android:layout_height="79dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Menu"
             android:src="@android:drawable/ic_menu_sort_by_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white" />
 
         <TextView
             android:id="@+id/tvCategoriesTitle"
             android:layout_width="266dp"
             android:layout_height="48dp"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="28dp"
-            android:layout_marginEnd="20dp"
             android:text="@string/kategori_produk"
             android:textColor="#E6F3FF"
             android:textSize="22sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/btnCartCat"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.551"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/btnCartCat"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="67dp"
+            android:layout_height="82dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/product_image"
             android:src="@drawable/ic_cart"
-            app:tint="#E6F3FF"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBaseline_toBaselineOf="@+id/tvCategoriesTitle" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#E6F3FF" />
 
-        <!-- Search bar -->
         <LinearLayout
             android:id="@+id/searchBar"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
             android:layout_marginTop="16dp"
-            android:orientation="horizontal"
-            android:padding="8dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="8dp"
             android:background="#0B253A"
-            android:gravity="center_vertical"
-            app:layout_constraintTop_toBottomOf="@+id/tvCategoriesTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:clipToPadding="false"
             android:elevation="2dp"
-            android:layout_marginBottom="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            >
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCategoriesTitle">
 
             <ImageView
                 android:layout_width="20dp"
@@ -88,11 +87,11 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:hint="@string/cari_hint"
-                android:textColorHint="#8FBEEA"
-                android:textColor="#E6F3FF"
+                android:inputType="text"
                 android:paddingStart="12dp"
-                android:textSize="14sp"
-                android:inputType="text" />
+                android:textColor="#E6F3FF"
+                android:textColorHint="#8FBEEA"
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -152,7 +151,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/komputer_label"
-                                android:textColor="#E6F3FF"
+                                android:textColor="#000000"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
 
@@ -161,7 +160,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="6dp"
                                 android:text="@string/komputer_sub"
-                                android:textColor="#9FCBEA"
+                                android:textColor="#000000"
                                 android:textSize="13sp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -187,7 +186,7 @@
                             android:layout_width="96dp"
                             android:layout_height="96dp"
                             android:contentDescription="@string/laptop_label"
-                            android:src="@drawable/laptop"
+                            android:src="@drawable/laptop1"
                             app:tint="#8FBEEA" />
 
                         <LinearLayout
@@ -203,7 +202,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/laptop_label"
-                                android:textColor="#E6F3FF"
+                                android:textColor="#000000"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
 
@@ -212,7 +211,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="6dp"
                                 android:text="@string/laptop_sub"
-                                android:textColor="#9FCBEA"
+                                android:textColor="#132A3A"
                                 android:textSize="13sp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -254,7 +253,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/komponen_label"
-                                android:textColor="#E6F3FF"
+                                android:textColor="#000000"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
 
@@ -263,7 +262,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="6dp"
                                 android:text="@string/komponen_sub"
-                                android:textColor="#9FCBEA"
+                                android:textColor="#000000"
                                 android:textSize="13sp" />
                         </LinearLayout>
                     </LinearLayout>

@@ -24,9 +24,9 @@ class LoginActivity : AppCompatActivity() {
         val etPassword = findViewById<EditText>(R.id.etPassword)
 
         // Support extras from RegisterActivity
-        val registeredName = intent.getStringExtra("registered_name")
-        val registeredEmail = intent.getStringExtra("registered_email")
-        val prefill = registeredEmail ?: intent.getStringExtra("prefill_email")
+        val registeredName = intent.getStringExtra(Extras.REGISTERED_NAME)
+        val registeredEmail = intent.getStringExtra(Extras.REGISTERED_EMAIL)
+        val prefill = registeredEmail ?: intent.getStringExtra(Extras.PREFILL_EMAIL)
         if (!prefill.isNullOrEmpty()) {
             etEmail.setText(prefill)
         }

@@ -53,6 +53,12 @@
         <activity
             android:name=".CategoryListActivity"
             android:exported="false" />
+        <activity
+            android:name=".SubCategoryListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BrandListActivity"
+            android:exported="false" />
 
         <!-- Order activity -->
         <activity

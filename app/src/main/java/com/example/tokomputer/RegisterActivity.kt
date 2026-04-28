@@ -37,8 +37,8 @@ class RegisterActivity : AppCompatActivity() {
                     // Jangan otomatis login. Arahkan ke LoginActivity agar user memasukkan email & password.
                     val intent = Intent(this, LoginActivity::class.java)
                     // Kirim data pendaftaran untuk prefill (opsional)
-                    intent.putExtra("registered_name", name)
-                    intent.putExtra("registered_email", email)
+                    intent.putExtra(Extras.REGISTERED_NAME, name)
+                    intent.putExtra(Extras.REGISTERED_EMAIL, email)
                     // jangan kirim password jika tidak perlu; jika ingin prefilling, bisa ditambahkan:
                     // intent.putExtra("registered_password", password)
                     startActivity(intent)

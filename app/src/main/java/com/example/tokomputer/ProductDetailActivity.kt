@@ -26,20 +26,20 @@ class ProductDetailActivity : AppCompatActivity() {
         val tvSpecs = findViewById<TextView>(R.id.tvProductSpecs)
         val btnBuy = findViewById<Button>(R.id.btnBuyNow)
 
-        val name = intent.getStringExtra("name")
-        val price = intent.getStringExtra("price")
-        val image = intent.getIntExtra("image", R.drawable.rtx50901)
-        val id = intent.getIntExtra("id", image) // fallback
+        val name = intent.getStringExtra(Extras.PRODUCT_NAME)
+        val price = intent.getStringExtra(Extras.PRODUCT_PRICE)
+        val image = intent.getIntExtra(Extras.PRODUCT_IMAGE, R.drawable.rtx50901)
+        val id = intent.getIntExtra(Extras.PRODUCT_ID, image) // fallback
 
         tvName.text = name ?: getString(R.string.product_name_asus)
         tvPrice.text = price ?: getString(R.string.product_price_asus)
         imgProduct.setImageResource(image)
 
-        tvDesc.text = intent.getStringExtra("desc") ?: getString(R.string.product_desc)
+        tvDesc.text = intent.getStringExtra(Extras.PRODUCT_DESC) ?: getString(R.string.product_desc)
 
         // Load specs: priority -> specsResId (int) -> specsText (string) -> default string resource
-        val specsResId = intent.getIntExtra("specsResId", 0)
-        val specsText = intent.getStringExtra("specsText")
+        val specsResId = intent.getIntExtra(Extras.PRODUCT_SPECS_RES_ID, 0)
+        val specsText = intent.getStringExtra(Extras.PRODUCT_SPECS_TEXT)
 
         when {
             specsResId != 0 -> tvSpecs.setText(specsResId)

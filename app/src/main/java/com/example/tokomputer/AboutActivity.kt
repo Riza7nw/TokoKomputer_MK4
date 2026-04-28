@@ -27,21 +27,7 @@ class AboutActivity : AppCompatActivity() {
         navView?.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_home -> startActivity(Intent(this, MainActivity::class.java))
-                R.id.nav_komputer -> {
-                    val i = Intent(this, CategoryListActivity::class.java)
-                    i.putExtra("category", "komputer")
-                    startActivity(i)
-                }
-                R.id.nav_laptop -> {
-                    val i = Intent(this, CategoryListActivity::class.java)
-                    i.putExtra("category", "laptop")
-                    startActivity(i)
-                }
-                R.id.nav_komponen -> {
-                    val i = Intent(this, CategoryListActivity::class.java)
-                    i.putExtra("category", "komponen")
-                    startActivity(i)
-                }
+                R.id.nav_categories -> startActivity(Intent(this, CategoriesActivity::class.java))
                 R.id.nav_member -> startActivity(Intent(this, MemberActivity::class.java))
                 R.id.nav_tentang -> {
                     // already on AboutActivity

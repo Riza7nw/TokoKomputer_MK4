@@ -7,8 +7,13 @@ data class Product(
     val id: Int,
     val name: String,
     val price: String,
-    val imageRes: Int, // drawable resource id (or use String for URL)
+    val imageRes: Int,
     val desc: String? = null,
     val specsResId: Int? = null,
-    val specsText: String? = null
+    val specsText: String? = null,
+
+    // 🔥 tambahan (opsional, aman)
+    val category: String? = null,
+    val subcategory: String? = null,
+    val brand: String? = null
 )
