@@ -27,14 +27,10 @@ class ProductAdapter(
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val p = items[position]
-
         holder.name.text = p.name
         holder.price.text = p.price
-        holder.iv.setImageResource(p.imageRes)
-
-        holder.btn.setOnClickListener {
-            onClick(p) // 🔥 kirim product
-        }
+        holder.iv.setImageResource(p.image)   // ← imageRes → image
+        holder.btn.setOnClickListener { onClick(p) }
     }
 
     override fun getItemCount() = items.size

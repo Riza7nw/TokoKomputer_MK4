@@ -9,34 +9,34 @@ object DataRepository {
 
         // ================= LAPTOP ASUS =================
         Product(1, "ASUS ROG Strix G16", "Rp25.575.999", R.drawable.laptop, desc = "laptop kencang", specsText = "dkod", category="laptop", brand="ASUS"),
-        Product(2, "ASUS TUF Gaming F15", "Rp15.000.000", R.drawable.laptop, category="laptop", brand="ASUS"),
-        Product(3, "ASUS ZenBook 14 OLED", "Rp18.500.000", R.drawable.laptop, category="laptop", brand="ASUS"),
-        Product(4, "ASUS VivoBook 15", "Rp9.000.000", R.drawable.laptop, category="laptop", brand="ASUS"),
-        Product(5, "ASUS ROG Zephyrus G14", "Rp22.000.000", R.drawable.laptop, category="laptop", brand="ASUS"),
+        Product(2, "ASUS TUF Gaming F15", "Rp15.000.000", R.drawable.asus, desc = "laptop Gaming", specsText = "dkod" , category="laptop", brand="ASUS"),
+        Product(3, "ASUS ZenBook 14 OLED", "Rp18.500.000", R.drawable.zenbook14, desc = "laptop oled" , specsText = "dkod" , category="laptop", brand="ASUS"),
+        Product(4, "ASUS VivoBook 15", "Rp9.000.000", R.drawable.vivobookgo, desc = "laptop dana pelajar" , specsText = "dkod" , category="laptop", brand="ASUS"),
+        Product(5, "ASUS ROG Zephyrus G14", "Rp22.000.000", R.drawable.rogzephyrusg14, desc = "laptop gaming 14 inci terkuat/ter-powerful ", specsText = "dkod" , category="laptop", brand="ASUS"),
 
         // ================= LAPTOP MSI =================
-        Product(10, "MSI Katana GF66", "Rp16.000.000", R.drawable.laptop, category="laptop", brand="MSI"),
-        Product(11, "MSI Stealth 15M", "Rp22.000.000", R.drawable.laptop, category="laptop", brand="MSI"),
-        Product(12, "MSI Pulse GL66", "Rp19.000.000", R.drawable.laptop, category="laptop", brand="MSI"),
-        Product(13, "MSI GF63 Thin", "Rp13.000.000", R.drawable.laptop, category="laptop", brand="MSI"),
-        Product(14, "MSI Creator Z16", "Rp28.000.000", R.drawable.laptop, category="laptop", brand="MSI"),
+        Product(10, "MSI Katana GF66", "Rp16.000.000", R.drawable.msikatana, desc = "laptop gaming kelas terjangkau yang powerful", specsText = "dkod",  category="laptop", brand="MSI"),
+        Product(11, "MSI Stealth 15M", "Rp22.000.000", R.drawable.msistealthgs77, desc = "laptop gaming ultraportable tertipis", specsText = "dkod", category="laptop", brand="MSI"),
+        Product(12, "MSI Pulse GL66", "Rp19.000.000", R.drawable.msipulsegl66, desc = "laptop gaming dengan Core i9 termurah", specsText = "dkod", category="laptop", brand="MSI"),
+        Product(13, "MSI GF63 Thin", "Rp13.000.000", R.drawable.msigf63thin, desc = "Laptop gaming tertipis dan teringan di kelas entry-level/menengah", specsText = "dkod", category="laptop", brand="MSI"),
+        Product(14, "MSI Creator Z16", "Rp28.000.000", R.drawable.msicreatorz16, desc = "laptop konten kreator profesional yang tercantik dan tercanggih", specsText = "dkod", category="laptop", brand="MSI"),
 
         // ================= LAPTOP LENOVO =================
-        Product(20, "Lenovo Legion 5", "Rp17.500.000", R.drawable.laptop, category="laptop", brand="Lenovo"),
-        Product(21, "Lenovo Legion 7", "Rp25.000.000", R.drawable.laptop, category="laptop", brand="Lenovo"),
-        Product(22, "Lenovo IdeaPad Gaming 3", "Rp12.000.000", R.drawable.laptop, category="laptop", brand="Lenovo"),
-        Product(23, "Lenovo ThinkPad X1 Carbon", "Rp30.000.000", R.drawable.laptop, category="laptop", brand="Lenovo"),
-        Product(24, "Lenovo Yoga Slim 7", "Rp18.000.000", R.drawable.laptop, category="laptop", brand="Lenovo"),
+        Product(20, "Lenovo Legion 5", "Rp17.500.000", R.drawable.legion5, desc = "laptop gaming yang dingin dan kencang", specsText = "dkod", category="laptop", brand="Lenovo"),
+        Product(21, "Lenovo Legion 7", "Rp25.000.000", R.drawable.legion7, desc = "laptop gaming 16 inci paling bertenaga", specsText = "dkod", category="laptop", brand="Lenovo"),
+        Product(22, "Lenovo IdeaPad Gaming 3", "Rp12.000.000", R.drawable.ideapadgaming3, desc = "laptop Gaming Terjangkau", specsText = "dkod",  category="laptop", brand="Lenovo"),
+        Product(23, "Lenovo ThinkPad X1 Carbon", "Rp30.000.000", R.drawable.thinkpadx1carbon, desc = "laptop bisnis premium terbaik", specsText = "dkod", category="laptop", brand="Lenovo"),
+        Product(24, "Lenovo Yoga Slim 7", "Rp18.000.000", R.drawable.yogaslim7, desc = "laptop OLED 14 inci paling ringan di dunia", specsText = "dkod", category="laptop", brand="Lenovo"),
 
         // ================= LAPTOP HP =================
-        Product(30, "HP Victus 15", "Rp14.000.000", R.drawable.laptop, category="laptop", brand="HP"),
-        Product(31, "HP Omen 16", "Rp20.000.000", R.drawable.laptop, category="laptop", brand="HP"),
-        Product(32, "HP Pavilion Gaming", "Rp13.000.000", R.drawable.laptop, category="laptop", brand="HP"),
-        Product(33, "HP Spectre x360", "Rp25.000.000", R.drawable.laptop, category="laptop", brand="HP"),
-        Product(34, "HP Envy 13", "Rp18.000.000", R.drawable.laptop, category="laptop", brand="HP"),
+        Product(30, "HP Victus 15", "Rp14.000.000", R.drawable.victus15, desc = "laptop Terjangkau", specsText = "dkod", category="laptop", brand="HP"),
+        Product(31, "HP Omen 16", "Rp20.000.000", R.drawable.omen16, desc = "laptop terkencang atau teradem di kelas menengah", specsText = "dkod",  category="laptop", brand="HP"),
+        Product(32, "HP Pavilion Gaming", "Rp13.000.000", R.drawable.pavilion, desc = "laptop gaming entry-level yang kencang, lengkap, dan terjangkau", specsText = "dkod", category="laptop", brand="HP"),
+        Product(33, "HP Spectre x360", "Rp25.000.000", R.drawable.spectrex360, desc = "laptop 2-in-1 konvertibel premium terbaik", specsText = "dkod", category="laptop", brand="HP"),
+        Product(34, "HP Envy 13", "Rp18.000.000", R.drawable.envy3, desc = "laptop premium yang lebih terjangkau", specsText = "dkod", category="laptop", brand="HP"),
 
         // ================= LAPTOP DELL =================
-        Product(40, "Dell G15 Gaming", "Rp15.000.000", R.drawable.laptop, category="laptop", brand="Dell"),
+        Product(40, "Dell G15 Gaming", "Rp15.000.000", R.drawable.dellg15, desc = "laptop premium yang lebih terjangkau", specsText = "dkod", category="laptop", brand="Dell"),
         Product(41, "Dell Alienware M16", "Rp35.000.000", R.drawable.laptop, category="laptop", brand="Dell"),
         Product(42, "Dell XPS 13", "Rp28.000.000", R.drawable.laptop, category="laptop", brand="Dell"),
         Product(43, "Dell Inspiron 15", "Rp10.000.000", R.drawable.laptop, category="laptop", brand="Dell"),

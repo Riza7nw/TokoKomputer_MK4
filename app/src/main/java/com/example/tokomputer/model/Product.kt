@@ -1,19 +1,18 @@
 package com.example.tokomputer.model
 
-import kotlinx.serialization.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
-@Serializable
+@Parcelize
 data class Product(
     val id: Int,
     val name: String,
     val price: String,
-    val imageRes: Int,
-    val desc: String? = null,
-    val specsResId: Int? = null,
-    val specsText: String? = null,
-
-    // 🔥 tambahan (opsional, aman)
-    val category: String? = null,
-    val subcategory: String? = null,
-    val brand: String? = null
-)
+    val image: Int,
+    val category: String = "",
+    val brand: String = "",
+    val subcategory: String = "",
+    val desc: String = "",
+    val specsText: String = "",
+    val specsResId: Int? = null   // tambah ini
+) : Parcelable

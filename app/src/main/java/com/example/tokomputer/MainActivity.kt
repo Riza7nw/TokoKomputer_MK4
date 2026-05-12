@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
                 putExtra(Extras.PRODUCT_ID, product.id)
                 putExtra(Extras.PRODUCT_NAME, product.name)
                 putExtra(Extras.PRODUCT_PRICE, product.price)
-                putExtra(Extras.PRODUCT_IMAGE, product.imageRes)
+                putExtra(Extras.PRODUCT_IMAGE, product.image)
                 product.desc?.let { putExtra(Extras.PRODUCT_DESC, it) }
                 product.specsResId?.let { putExtra(Extras.PRODUCT_SPECS_RES_ID, it) }
                 product.specsText?.let { putExtra(Extras.PRODUCT_SPECS_TEXT, it) }

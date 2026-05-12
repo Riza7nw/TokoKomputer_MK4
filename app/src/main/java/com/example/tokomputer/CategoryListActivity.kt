@@ -28,7 +28,6 @@ class CategoryListActivity : AppCompatActivity() {
             drawer.openDrawer(navView)
         }
 
-        // Title priority: brand -> subcategory -> category
         tvTitle.text = when {
             !brand.isNullOrBlank() -> brand
             !subcategory.isNullOrBlank() -> subcategory
@@ -45,19 +44,17 @@ class CategoryListActivity : AppCompatActivity() {
             i.putExtra(Extras.PRODUCT_ID, product.id)
             i.putExtra(Extras.PRODUCT_NAME, product.name)
             i.putExtra(Extras.PRODUCT_PRICE, product.price)
-            i.putExtra(Extras.PRODUCT_IMAGE, product.imageRes)
-            product.desc?.let { i.putExtra(Extras.PRODUCT_DESC, it) }
-            product.specsText?.let { i.putExtra(Extras.PRODUCT_SPECS_TEXT, it) }
+            i.putExtra(Extras.PRODUCT_IMAGE, product.image)      // ← imageRes → image
+            product.specsText.takeIf { it.isNotEmpty() }?.let { i.putExtra(Extras.PRODUCT_SPECS_RES_ID, it) }
+            product.specsResId?.let { i.putExtra(Extras.PRODUCT_SPECS_RES_ID, it) }
+            product.specsResId?.let { i.putExtra(Extras.PRODUCT_SPECS_RES_ID, it) }
             startActivity(i)
         }
 
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_home -> startActivity(Intent(this, MainActivity::class.java))
-                R.id.nav_categories -> {
-                    // open categories overview
-                    startActivity(Intent(this, CategoriesActivity::class.java))
-                }
+                R.id.nav_categories -> startActivity(Intent(this, CategoriesActivity::class.java))
                 R.id.nav_member -> startActivity(Intent(this, MemberActivity::class.java))
                 R.id.nav_logout -> {
                     SharedPrefManager.clearLogin()
