@@ -1,10 +1,12 @@
-package com.example.tokomputer
+package com.example.tokomputer.ui.member
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.tokomputer.data.local.SessionManager
+import com.example.tokomputer.ui.main.MainActivity
 
 class MemberActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +22,7 @@ class MemberActivity : AppCompatActivity() {
         setContentView(layoutId)
 
         // Initialize SharedPrefManager
-        SharedPrefManager.init(this)
+        SessionManager.init(this)
 
         // Lookup view IDs dynamically
         val tvNameId = resources.getIdentifier("tvMemberName", "id", packageName)
@@ -33,11 +35,11 @@ class MemberActivity : AppCompatActivity() {
         val btnLogout = if (btnLogoutId != 0) findViewById<Button>(btnLogoutId) else null
         val btnHome = if (btnHomeId != 0) findViewById<Button>(btnHomeId) else null
 
-        tvName?.text = SharedPrefManager.getName() ?: getString(resources.getIdentifier("dash", "string", packageName))
-        tvEmail?.text = SharedPrefManager.getEmail() ?: getString(resources.getIdentifier("dash", "string", packageName))
+        tvName?.text = SessionManager.getName() ?: getString(resources.getIdentifier("dash", "string", packageName))
+        tvEmail?.text = SessionManager.getEmail() ?: getString(resources.getIdentifier("dash", "string", packageName))
 
         btnLogout?.setOnClickListener {
-            SharedPrefManager.clearLogin()
+            SessionManager.clearLogin()
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)

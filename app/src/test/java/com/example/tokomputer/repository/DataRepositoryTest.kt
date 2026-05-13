@@ -1,5 +1,6 @@
 package com.example.tokomputer.repository
 
+import com.example.tokomputer.data.repository.DataRepository
 import org.junit.Assert.*
 import org.junit.Test
 

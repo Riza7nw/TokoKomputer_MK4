@@ -1,4 +1,4 @@
-package com.example.tokomputer
+package com.example.tokomputer.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,9 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.tokomputer.utils.Extras
+import com.example.tokomputer.R
+import com.example.tokomputer.data.local.SessionManager
 
 class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,7 +17,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
         // Initialize SharedPrefManager
-        SharedPrefManager.init(this)
+        SessionManager.init(this)
 
         val btnLoginTab = findViewById<Button>(R.id.btnLoginTab)
         val btnRegisterTab = findViewById<Button>(R.id.btnRegisterTab)

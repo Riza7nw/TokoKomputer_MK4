@@ -18,7 +18,7 @@
 
         <!-- Halaman utama -->
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,53 +26,51 @@
             </intent-filter>
         </activity>
 
-        <!-- Halaman login -->
+        <!-- Auth -->
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.auth.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.RegisterActivity"
             android:exported="false" />
 
-        <!-- Halaman registrasi -->
+        <!-- Member -->
         <activity
-            android:name=".RegisterActivity"
+            android:name=".ui.member.MemberActivity"
             android:exported="false" />
 
-        <!-- Halaman member -->
+        <!-- Product -->
         <activity
-            android:name=".MemberActivity"
+            android:name=".ui.product.ProductDetailActivity"
             android:exported="false" />
 
-        <!-- Halaman detail produk -->
+        <!-- Category -->
         <activity
-            android:name=".ProductDetailActivity"
+            android:name=".ui.category.CategoriesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.category.CategoryListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.category.SubCategoryListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.category.BrandListActivity"
             android:exported="false" />
 
-        <!-- Categories screens -->
+        <!-- Order -->
         <activity
-            android:name=".CategoriesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CategoryListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SubCategoryListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".BrandListActivity"
+            android:name=".ui.order.OrderActivity"
             android:exported="false" />
 
-        <!-- Order activity -->
+        <!-- Payment -->
         <activity
-            android:name=".order.OrderActivity"
+            android:name=".ui.transaction.PaymentSuccessActivity"
             android:exported="false" />
 
-        <!-- Payment success activity -->
+        <!-- About -->
         <activity
-            android:name=".PaymentSuccessActivity"
-            android:exported="false" />
-
-        <!-- About / Tentang Kami -->
-        <activity
-            android:name=".AboutActivity"
+            android:name=".ui.about.AboutActivity"
             android:exported="false" />
 
     </application>
