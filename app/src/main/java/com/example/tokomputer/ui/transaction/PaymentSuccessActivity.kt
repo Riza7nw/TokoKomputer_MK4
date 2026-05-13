@@ -1,4 +1,4 @@
-package com.example.tokomputer
+package com.example.tokomputer.ui.transaction
 
 import android.os.Bundle
 import android.widget.Button

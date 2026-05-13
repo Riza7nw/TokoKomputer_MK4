@@ -1,4 +1,4 @@
-package com.example.tokomputer
+package com.example.tokomputer.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,10 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.tokomputer.utils.Extras
+import com.example.tokomputer.ui.main.MainActivity
+import com.example.tokomputer.R
+import com.example.tokomputer.data.local.SessionManager
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,7 +18,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         // Initialize SharedPrefManager
-        SharedPrefManager.init(this)
+        SessionManager.init(this)
 
         val btnLoginTab = findViewById<Button>(R.id.btnLoginTab)
         val btnRegisterTab = findViewById<Button>(R.id.btnRegisterTab)
@@ -43,10 +47,10 @@ class LoginActivity : AppCompatActivity() {
                 // Simpan status login: gunakan registeredName jika tersedia, otherwise keep existing saved name or empty
                 val nameToSave = when {
                     !registeredName.isNullOrEmpty() -> registeredName
-                    !SharedPrefManager.getName().isNullOrEmpty() -> SharedPrefManager.getName()
+                    !SessionManager.getName().isNullOrEmpty() -> SessionManager.getName()
                     else -> ""
                 }
-                SharedPrefManager.setLogin(nameToSave, email)
+                SessionManager.setLogin(nameToSave, email)
                 // Buka MainActivity dan bersihkan back stack
                 val intent = Intent(this, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK

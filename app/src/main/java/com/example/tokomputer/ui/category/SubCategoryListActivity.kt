@@ -1,12 +1,14 @@
-package com.example.tokomputer
+package com.example.tokomputer.ui.category
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tokomputer.adapters.SimpleListAdapter
-import com.example.tokomputer.repository.DataRepository
+import com.example.tokomputer.utils.Extras
+import com.example.tokomputer.R
+import com.example.tokomputer.adapter.SimpleListAdapter
+import com.example.tokomputer.data.repository.DataRepository
 
 class SubCategoryListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

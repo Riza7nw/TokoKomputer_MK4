@@ -1,4 +1,4 @@
-package com.example.tokomputer.adapters
+package com.example.tokomputer.adapter
 
 import android.view.LayoutInflater
 import android.view.View

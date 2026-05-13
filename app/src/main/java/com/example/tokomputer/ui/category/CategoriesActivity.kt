@@ -1,9 +1,17 @@
-package com.example.tokomputer
+package com.example.tokomputer.ui.category
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+import com.example.tokomputer.utils.Extras
+import com.example.tokomputer.ui.auth.LoginActivity
+import com.example.tokomputer.ui.main.MainActivity
+import com.example.tokomputer.ui.member.MemberActivity
+import com.example.tokomputer.R
+import com.example.tokomputer.data.local.SessionManager
+import com.example.tokomputer.ui.about.AboutActivity
+import com.example.tokomputer.ui.order.OrderActivity
 import com.google.android.material.navigation.NavigationView
 
 class CategoriesActivity : AppCompatActivity() {
@@ -34,7 +42,7 @@ class CategoriesActivity : AppCompatActivity() {
         }
 
         btnCart.setOnClickListener {
-            startActivity(Intent(this, com.example.tokomputer.order.OrderActivity::class.java))
+            startActivity(Intent(this, OrderActivity::class.java))
         }
 
         navView.setNavigationItemSelectedListener { menuItem ->
@@ -51,7 +59,7 @@ class CategoriesActivity : AppCompatActivity() {
                     startActivity(i)
                 }
                 R.id.nav_logout -> {
-                    SharedPrefManager.clearLogin()
+                    SessionManager.clearLogin()
                     val i = Intent(this, LoginActivity::class.java)
                     startActivity(i)
                 }

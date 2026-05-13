@@ -1,4 +1,4 @@
-package com.example.tokomputer
+package com.example.tokomputer.utils
 
 object Extras {
     const val CATEGORY = "category"

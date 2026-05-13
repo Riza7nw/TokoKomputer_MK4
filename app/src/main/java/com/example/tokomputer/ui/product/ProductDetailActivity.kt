@@ -1,4 +1,4 @@
-package com.example.tokomputer
+package com.example.tokomputer.ui.product
 
 import android.os.Bundle
 import android.widget.Button
@@ -7,8 +7,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.example.tokomputer.utils.Extras
+import com.example.tokomputer.R
 import com.example.tokomputer.model.OrderItem
-import com.example.tokomputer.order.OrderViewModel
+import com.example.tokomputer.ui.order.OrderViewModel
 import java.util.Locale
 
 class ProductDetailActivity : AppCompatActivity() {

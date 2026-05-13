@@ -1,4 +1,4 @@
-package com.example.tokomputer.order
+package com.example.tokomputer.ui.order
 
 import android.content.Intent
 import android.os.Bundle
@@ -59,7 +59,7 @@ class OrderActivity : AppCompatActivity() {
                 .setPositiveButton("OK") { _, _ ->
                     vm.clearOrders()
                     // Start PaymentSuccessActivity by class name to avoid static reference
-                    val className = "com.example.tokomputer.PaymentSuccessActivity"
+                    val className = "com.example.tokomputer.ui.transaction.PaymentSuccessActivity"
                     val intent = Intent()
                     intent.setClassName(this, className)
                     startActivity(intent)

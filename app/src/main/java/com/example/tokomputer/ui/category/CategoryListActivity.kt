@@ -1,4 +1,4 @@
-package com.example.tokomputer
+package com.example.tokomputer.ui.category
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,8 +6,16 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tokomputer.utils.Extras
+import com.example.tokomputer.ui.auth.LoginActivity
+import com.example.tokomputer.ui.main.MainActivity
+import com.example.tokomputer.ui.member.MemberActivity
+import com.example.tokomputer.R
+import com.example.tokomputer.data.local.SessionManager
 import com.example.tokomputer.adapter.ProductAdapter
-import com.example.tokomputer.repository.DataRepository
+import com.example.tokomputer.data.repository.DataRepository
+import com.example.tokomputer.ui.about.AboutActivity
+import com.example.tokomputer.ui.product.ProductDetailActivity
 import com.google.android.material.navigation.NavigationView
 
 class CategoryListActivity : AppCompatActivity() {
@@ -57,7 +65,7 @@ class CategoryListActivity : AppCompatActivity() {
                 R.id.nav_categories -> startActivity(Intent(this, CategoriesActivity::class.java))
                 R.id.nav_member -> startActivity(Intent(this, MemberActivity::class.java))
                 R.id.nav_logout -> {
-                    SharedPrefManager.clearLogin()
+                    SessionManager.clearLogin()
                     startActivity(Intent(this, LoginActivity::class.java))
                 }
                 R.id.nav_tentang -> startActivity(Intent(this, AboutActivity::class.java))

@@ -1,4 +1,4 @@
-package com.example.tokomputer.order
+package com.example.tokomputer.ui.order
 
 import android.view.LayoutInflater
 import android.view.View

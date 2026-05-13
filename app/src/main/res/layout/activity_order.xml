@@ -6,7 +6,7 @@
     android:background="@color/soft_blue"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".order.OrderActivity">
+    tools:context=".ui.order.OrderActivity">
 
     <TextView
         android:id="@+id/tvOrderTitle"
