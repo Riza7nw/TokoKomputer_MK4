@@ -9,7 +9,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tokomputer.utils.Extras
 import com.example.tokomputer.R
-import com.example.tokomputer.model.OrderItem
 import com.example.tokomputer.ui.order.OrderViewModel
 import java.util.Locale
 

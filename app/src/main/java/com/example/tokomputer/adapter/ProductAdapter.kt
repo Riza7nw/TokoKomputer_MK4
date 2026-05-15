@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tokomputer.R
-import com.example.tokomputer.model.Product
 
 class ProductAdapter(
     private val items: List<Product>,

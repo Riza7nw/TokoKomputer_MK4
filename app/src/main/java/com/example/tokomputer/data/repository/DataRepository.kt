@@ -1,7 +1,6 @@
 package com.example.tokomputer.data.repository
 
 import com.example.tokomputer.R
-import com.example.tokomputer.model.Product
 
 object DataRepository {
 

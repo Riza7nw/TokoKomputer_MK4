@@ -2,7 +2,6 @@ package com.example.tokomputer.ui.order
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.tokomputer.model.OrderItem
 
 class OrderViewModel : ViewModel() {
     val orders: LiveData<MutableList<OrderItem>> = OrderRepository.orders

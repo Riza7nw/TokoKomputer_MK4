@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tokomputer.R
-import com.example.tokomputer.model.OrderItem
 import java.util.Locale
 import kotlin.math.max
 
