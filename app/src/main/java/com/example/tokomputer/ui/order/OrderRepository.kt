@@ -2,7 +2,6 @@ package com.example.tokomputer.ui.order
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.tokomputer.model.OrderItem
 
 object OrderRepository {
     private val _orders = MutableLiveData<MutableList<OrderItem>>(mutableListOf())

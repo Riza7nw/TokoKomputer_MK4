@@ -16,7 +16,6 @@
     import com.example.tokomputer.R
     import com.example.tokomputer.data.local.SessionManager
     import com.example.tokomputer.adapter.ProductAdapter
-    import com.example.tokomputer.model.Product
     import com.example.tokomputer.ui.about.AboutActivity
     import com.example.tokomputer.ui.auth.LoginActivity
     import com.example.tokomputer.ui.order.OrderActivity
