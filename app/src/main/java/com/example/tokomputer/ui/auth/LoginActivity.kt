@@ -2,78 +2,114 @@ package com.example.tokomputer.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.tokomputer.utils.Extras
-import com.example.tokomputer.ui.main.MainActivity
 import com.example.tokomputer.R
 import com.example.tokomputer.data.local.SessionManager
+import com.example.tokomputer.ui.main.MainActivity
+import com.example.tokomputer.utils.Resource
 
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var etEmail: EditText
+    private lateinit var etPassword: EditText
+    private lateinit var btnLogin: Button
+    private lateinit var btnLoginTab: Button
+    private lateinit var btnRegisterTab: Button
+    private lateinit var tvRegisterNow: TextView
+    private lateinit var tvForgotPassword: TextView
+    private lateinit var progressBar: ProgressBar
+
+    private val viewModel: LoginViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Kalau sudah login → langsung ke MainActivity
+        if (SessionManager.isLoggedIn()) {
+            goToMain()
+            return
+        }
+
         setContentView(R.layout.activity_login)
 
-        // Initialize SharedPrefManager
-        SessionManager.init(this)
+        initViews()
+        observeViewModel()
+        setupClickListeners()
+    }
 
-        val btnLoginTab = findViewById<Button>(R.id.btnLoginTab)
-        val btnRegisterTab = findViewById<Button>(R.id.btnRegisterTab)
-        val btnLogin = findViewById<Button>(R.id.btnLogin)
-        val tvRegisterNow = findViewById<TextView>(R.id.tvRegisterNow)
-        val etEmail = findViewById<EditText>(R.id.etEmail)
-        val etPassword = findViewById<EditText>(R.id.etPassword)
+    private fun initViews() {
+        etEmail          = findViewById(R.id.etEmail)
+        etPassword       = findViewById(R.id.etPassword)
+        btnLogin         = findViewById(R.id.btnLogin)
+        btnLoginTab      = findViewById(R.id.btnLoginTab)
+        btnRegisterTab   = findViewById(R.id.btnRegisterTab)
+        tvRegisterNow    = findViewById(R.id.tvRegisterNow)
+        tvForgotPassword = findViewById(R.id.tvForgotPassword)
 
-        // Support extras from RegisterActivity
-        val registeredName = intent.getStringExtra(Extras.REGISTERED_NAME)
-        val registeredEmail = intent.getStringExtra(Extras.REGISTERED_EMAIL)
-        val prefill = registeredEmail ?: intent.getStringExtra(Extras.PREFILL_EMAIL)
-        if (!prefill.isNullOrEmpty()) {
-            etEmail.setText(prefill)
+        // Tambahkan ProgressBar ke layout (lihat catatan XML di bawah)
+        progressBar = findViewById(R.id.progressBar)
+    }
+
+    private fun setupClickListeners() {
+
+        // Tombol Login
+        btnLogin.setOnClickListener {
+            val email    = etEmail.text.toString().trim()
+            val password = etPassword.text.toString().trim()
+            viewModel.login(email, password)
         }
 
-        // Contoh interaksi sederhana
-        btnLogin.setOnClickListener {
-            val email = etEmail.text.toString()
-            val password = etPassword.text.toString()
+        // Tab → pindah ke Register
+        btnRegisterTab.setOnClickListener {
+            goToRegister()
+        }
 
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Email dan Password harus diisi", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Login berhasil!", Toast.LENGTH_SHORT).show()
-                // Simpan status login: gunakan registeredName jika tersedia, otherwise keep existing saved name or empty
-                val nameToSave = when {
-                    !registeredName.isNullOrEmpty() -> registeredName
-                    !SessionManager.getName().isNullOrEmpty() -> SessionManager.getName()
-                    else -> ""
+        // Link → pindah ke Register
+        tvRegisterNow.setOnClickListener {
+            goToRegister()
+        }
+
+        // Lupa password (opsional, bisa diisi nanti)
+        tvForgotPassword.setOnClickListener {
+            Toast.makeText(this, "Fitur belum tersedia", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun observeViewModel() {
+        viewModel.loginState.observe(this) { state ->
+            when (state) {
+                is Resource.Loading -> {
+                    progressBar.visibility = View.VISIBLE
+                    btnLogin.isEnabled     = false
                 }
-                SessionManager.setLogin(nameToSave, email)
-                // Buka MainActivity dan bersihkan back stack
-                val intent = Intent(this, MainActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
-                finish()
+                is Resource.Success -> {
+                    progressBar.visibility = View.GONE
+                    btnLogin.isEnabled     = true
+                    Toast.makeText(this, "Login berhasil!", Toast.LENGTH_SHORT).show()
+                    goToMain()
+                }
+                is Resource.Error -> {
+                    progressBar.visibility = View.GONE
+                    btnLogin.isEnabled     = true
+                    Toast.makeText(this, state.message, Toast.LENGTH_LONG).show()
+                }
             }
         }
+    }
 
-        tvRegisterNow.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+    private fun goToMain() {
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+    }
 
-        btnLoginTab.setOnClickListener {
-            btnLoginTab.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
-            btnRegisterTab.backgroundTintList = getColorStateList(android.R.color.darker_gray)
-        }
-
-        btnRegisterTab.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+    private fun goToRegister() {
+        startActivity(Intent(this, RegisterActivity::class.java))
     }
 }

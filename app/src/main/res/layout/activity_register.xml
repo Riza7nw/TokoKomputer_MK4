@@ -97,6 +97,23 @@
             android:inputType="textPassword"
             android:padding="12dp" />
 
+        <EditText
+            android:id="@+id/etPhone"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_input"
+            android:hint="Nomor HP (contoh: 08123456789)"
+            android:inputType="phone"
+            android:padding="12dp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:visibility="gone" />
         <!-- Tombol Daftar -->
         <Button
             android:id="@+id/btnRegister"
