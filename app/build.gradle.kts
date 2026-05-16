@@ -53,6 +53,7 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.15.1")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     implementation(libs.androidx.mediarouter)
+    implementation(libs.activity)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -2,69 +2,117 @@ package com.example.tokomputer.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.tokomputer.utils.Extras
 import com.example.tokomputer.R
-import com.example.tokomputer.data.local.SessionManager
+import com.example.tokomputer.utils.Resource
 
 class RegisterActivity : AppCompatActivity() {
+
+    private lateinit var etName: EditText
+    private lateinit var etEmail: EditText
+    private lateinit var etPassword: EditText
+    private lateinit var etConfirmPassword: EditText
+    private lateinit var btnRegister: Button
+    private lateinit var btnLoginTab: Button
+    private lateinit var btnRegisterTab: Button
+    private lateinit var tvLoginNow: TextView
+    private lateinit var progressBar: ProgressBar
+
+    private val viewModel: RegisterViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        // Initialize SharedPrefManager
-        SessionManager.init(this)
+        initViews()
+        observeViewModel()
+        setupClickListeners()
+    }
 
-        val btnLoginTab = findViewById<Button>(R.id.btnLoginTab)
-        val btnRegisterTab = findViewById<Button>(R.id.btnRegisterTab)
-        val btnRegister = findViewById<Button>(R.id.btnRegister)
-        val tvLoginNow = findViewById<TextView>(R.id.tvLoginNow)
+    private fun initViews() {
+        etName            = findViewById(R.id.etName)
+        etEmail           = findViewById(R.id.etEmail)
+        etPassword        = findViewById(R.id.etPassword)
+        etConfirmPassword = findViewById(R.id.etConfirmPassword)
+        btnRegister       = findViewById(R.id.btnRegister)
+        btnLoginTab       = findViewById(R.id.btnLoginTab)
+        btnRegisterTab    = findViewById(R.id.btnRegisterTab)
+        tvLoginNow        = findViewById(R.id.tvLoginNow)
+        progressBar       = findViewById(R.id.progressBar)
+    }
 
+    private fun setupClickListeners() {
+
+        // Tombol Register
         btnRegister.setOnClickListener {
-            val name = findViewById<EditText>(R.id.etName).text.toString()
-            val email = findViewById<EditText>(R.id.etEmail).text.toString()
-            val password = findViewById<EditText>(R.id.etPassword).text.toString()
-            val confirmPassword = findViewById<EditText>(R.id.etConfirmPassword).text.toString()
+            val name            = etName.text.toString().trim()
+            val email           = etEmail.text.toString().trim()
+            val password        = etPassword.text.toString().trim()
+            val confirmPassword = etConfirmPassword.text.toString().trim()
 
-            when {
-                name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() ->
-                    Toast.makeText(this, "Semua field harus diisi", Toast.LENGTH_SHORT).show()
-                password != confirmPassword ->
-                    Toast.makeText(this, "Password tidak cocok", Toast.LENGTH_SHORT).show()
-                else -> {
-                    Toast.makeText(this, "Registrasi berhasil! Silakan login.", Toast.LENGTH_SHORT).show()
-                    // Jangan otomatis login. Arahkan ke LoginActivity agar user memasukkan email & password.
-                    val intent = Intent(this, LoginActivity::class.java)
-                    // Kirim data pendaftaran untuk prefill (opsional)
-                    intent.putExtra(Extras.REGISTERED_NAME, name)
-                    intent.putExtra(Extras.REGISTERED_EMAIL, email)
-                    // jangan kirim password jika tidak perlu; jika ingin prefilling, bisa ditambahkan:
-                    // intent.putExtra("registered_password", password)
-                    startActivity(intent)
-                    finish()
+            // Phone belum ada di UI → pakai string kosong dulu
+            // Nanti bisa tambah field etPhone di XML
+            val phone = ""
+
+            viewModel.register(name, email, password, confirmPassword, phone)
+        }
+
+        // Tab → pindah ke Login
+        btnLoginTab.setOnClickListener {
+            goToLogin()
+        }
+
+        // Link → pindah ke Login
+        tvLoginNow.setOnClickListener {
+            goToLogin()
+        }
+    }
+
+    private fun observeViewModel() {
+        viewModel.registerState.observe(this) { state ->
+            when (state) {
+                is Resource.Loading -> {
+                    progressBar.visibility  = View.VISIBLE
+                    btnRegister.isEnabled   = false
+                }
+                is Resource.Success -> {
+                    progressBar.visibility  = View.GONE
+                    btnRegister.isEnabled   = true
+                    Toast.makeText(
+                        this,
+                        "Register berhasil! Cek email untuk OTP",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    // Pindah ke OTP / Login
+                    goToOtp()
+                }
+                is Resource.Error -> {
+                    progressBar.visibility  = View.GONE
+                    btnRegister.isEnabled   = true
+                    Toast.makeText(this, state.message, Toast.LENGTH_LONG).show()
                 }
             }
         }
+    }
 
-        // Tab navigasi
-        btnLoginTab.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+    private fun goToLogin() {
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
+    }
 
-        btnRegisterTab.setOnClickListener {
-            // Sudah di halaman daftar, tidak melakukan apa-apa
-        }
-
-        tvLoginNow.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+    private fun goToOtp() {
+        // Kirim email ke OTP Activity
+        val email = etEmail.text.toString().trim()
+        val intent = Intent(this, OtpActivity::class.java)
+        intent.putExtra("email", email)
+        startActivity(intent)
+        finish()
     }
 }

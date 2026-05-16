@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.tokomputer">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -15,36 +15,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TOKOMPUTER"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ui.auth.otp_activity"
+            android:exported="false" />
         <!-- Halaman utama -->
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Auth -->
+        </activity> <!-- Auth -->
         <activity
             android:name=".ui.auth.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".ui.auth.RegisterActivity"
-            android:exported="false" />
-
-        <!-- Member -->
+            android:exported="false" /> <!-- Member -->
         <activity
             android:name=".ui.member.MemberActivity"
-            android:exported="false" />
-
-        <!-- Product -->
+            android:exported="false" /> <!-- Product -->
         <activity
             android:name=".ui.product.ProductDetailActivity"
-            android:exported="false" />
-
-        <!-- Category -->
+            android:exported="false" /> <!-- Category -->
         <activity
             android:name=".ui.category.CategoriesActivity"
             android:exported="false" />
@@ -56,23 +51,20 @@
             android:exported="false" />
         <activity
             android:name=".ui.category.BrandListActivity"
-            android:exported="false" />
-
-        <!-- Order -->
+            android:exported="false" /> <!-- Order -->
         <activity
             android:name=".ui.order.OrderActivity"
-            android:exported="false" />
-
-        <!-- Payment -->
+            android:exported="false" /> <!-- Payment -->
         <activity
             android:name=".ui.transaction.PaymentSuccessActivity"
-            android:exported="false" />
-
-        <!-- About -->
+            android:exported="false" /> <!-- About -->
         <activity
             android:name=".ui.about.AboutActivity"
             android:exported="false" />
-
+        <!-- OTP -->
+        <activity
+            android:name=".ui.auth.OtpActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
