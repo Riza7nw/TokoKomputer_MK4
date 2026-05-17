@@ -1,78 +1,79 @@
 package com.example.tokomputer.ui.product
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.tokomputer.utils.Extras
+import com.bumptech.glide.Glide
 import com.example.tokomputer.R
-import com.example.tokomputer.ui.order.OrderViewModel
-import java.util.Locale
+import com.example.tokomputer.data.local.SessionManager
+import com.example.tokomputer.ui.auth.LoginActivity
+import com.example.tokomputer.ui.order.OrderActivity
 
 class ProductDetailActivity : AppCompatActivity() {
 
-    private val orderVm: OrderViewModel by viewModels<OrderViewModel>()
+    private lateinit var imgProduct: ImageView
+    private lateinit var tvProductName: TextView
+    private lateinit var tvProductPrice: TextView
+    private lateinit var tvProductDesc: TextView
+    private lateinit var tvProductSpecs: TextView
+    private lateinit var btnBuyNow: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_detail)
 
-        val imgProduct = findViewById<ImageView>(R.id.imgProduct)
-        val tvName     = findViewById<TextView>(R.id.tvProductName)
-        val tvPrice    = findViewById<TextView>(R.id.tvProductPrice)
-        val tvDesc     = findViewById<TextView>(R.id.tvProductDesc)
-        val tvSpecs    = findViewById<TextView>(R.id.tvProductSpecs)
-        val btnBuy     = findViewById<Button>(R.id.btnBuyNow)
-
-        val name  = intent.getStringExtra(Extras.PRODUCT_NAME)
-        val price = intent.getStringExtra(Extras.PRODUCT_PRICE)
-        val image = intent.getIntExtra(Extras.PRODUCT_IMAGE, R.drawable.rtx50901)
-        val id    = intent.getIntExtra(Extras.PRODUCT_ID, image)
-
-        tvName.text  = name  ?: getString(R.string.product_name_asus)
-        tvPrice.text = price ?: getString(R.string.product_price_asus)
-        imgProduct.setImageResource(image)
-
-        tvDesc.text = intent.getStringExtra(Extras.PRODUCT_DESC)
-            ?: getString(R.string.product_desc)
-
-        val specsResId = intent.getIntExtra(Extras.PRODUCT_SPECS_RES_ID, 0)
-        val specsText  = intent.getStringExtra(Extras.PRODUCT_SPECS_TEXT)
-
-        when {
-            specsResId != 0            -> tvSpecs.text = getString(specsResId)
-            !specsText.isNullOrEmpty() -> tvSpecs.text = specsText
-            else                       -> tvSpecs.text = getString(R.string.specs_asus_rog_strix_g16)
-        }
-
-        btnBuy.setOnClickListener {
-            val raw = price ?: ""
-            val sepPattern      = Regex("""\d{1,3}(?:[.,]\d{3})+""")
-            val fallbackPattern = Regex("""\d+""")
-            val match     = sepPattern.find(raw) ?: fallbackPattern.find(raw)
-            val numberStr = match?.value?.replace("[^0-9]".toRegex(), "") ?: "0"
-            val unitPrice = numberStr.toDoubleOrNull() ?: 0.0
-
-            val orderItem = OrderItem(
-                id        = id,
-                name      = tvName.text.toString(),
-                unitPrice = unitPrice,
-                quantity  = 1,
-                imageRes  = image
-            )
-            orderVm.addItem(orderItem)
-            Toast.makeText(
-                this,
-                "Berhasil ditambahkan ke keranjang (${formatRupiah(unitPrice)})",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
+        initViews()
+        loadProductData()
     }
 
-    private fun formatRupiah(value: Double): String {
-        return "Rp" + String.format(Locale.forLanguageTag("id-ID"), "%,.0f", value)
+    private fun initViews() {
+        imgProduct     = findViewById(R.id.imgProduct)
+        tvProductName  = findViewById(R.id.tvProductName)
+        tvProductPrice = findViewById(R.id.tvProductPrice)
+        tvProductDesc  = findViewById(R.id.tvProductDesc)
+        tvProductSpecs = findViewById(R.id.tvProductSpecs)
+        btnBuyNow      = findViewById(R.id.btnBuyNow)
+    }
+
+    private fun loadProductData() {
+        // Ambil data dari intent
+        val productId    = intent.getIntExtra("product_id", 0)
+        val productName  = intent.getStringExtra("product_name") ?: "-"
+        val productPrice = intent.getDoubleExtra("product_price", 0.0)
+        val productImage = intent.getStringExtra("product_image")
+        val productDesc  = intent.getStringExtra("product_desc") ?: "-"
+
+        // Set data ke UI
+        tvProductName.text  = productName
+        tvProductPrice.text = "Rp ${String.format("%,.0f", productPrice)}"
+        tvProductDesc.text  = productDesc
+        tvProductSpecs.text = "" // kosong dulu, bisa diisi dari API nanti
+
+        // Load gambar
+        Glide.with(this)
+            .load(productImage)
+            .placeholder(R.drawable.ic_computer)
+            .error(R.drawable.ic_computer)
+            .centerCrop()
+            .into(imgProduct)
+
+        // Tombol beli
+        btnBuyNow.setOnClickListener {
+            if (SessionManager.isLoggedIn()) {
+                val intent = Intent(this, OrderActivity::class.java).apply {
+                    putExtra("product_id",    productId)
+                    putExtra("product_name",  productName)
+                    putExtra("product_price", productPrice)
+                }
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Login dulu untuk membeli", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, LoginActivity::class.java))
+            }
+        }
     }
 }
