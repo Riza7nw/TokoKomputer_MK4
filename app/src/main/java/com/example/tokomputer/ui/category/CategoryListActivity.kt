@@ -2,76 +2,136 @@ package com.example.tokomputer.ui.category
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageButton
+import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tokomputer.utils.Extras
+import com.example.tokomputer.R
+import com.example.tokomputer.adapter.ProductAdapter
+import com.example.tokomputer.data.local.SessionManager
+import com.example.tokomputer.ui.about.AboutActivity
 import com.example.tokomputer.ui.auth.LoginActivity
 import com.example.tokomputer.ui.main.MainActivity
 import com.example.tokomputer.ui.member.MemberActivity
-import com.example.tokomputer.R
-import com.example.tokomputer.data.local.SessionManager
-import com.example.tokomputer.adapter.ProductAdapter
-import com.example.tokomputer.data.repository.DataRepository
-import com.example.tokomputer.ui.about.AboutActivity
 import com.example.tokomputer.ui.product.ProductDetailActivity
+import com.example.tokomputer.utils.Extras
+import com.example.tokomputer.utils.Resource
 import com.google.android.material.navigation.NavigationView
 
 class CategoryListActivity : AppCompatActivity() {
+
+    private lateinit var rvProducts: RecyclerView
+    private lateinit var tvTitle: TextView
+    private lateinit var progressBar: ProgressBar
+    private lateinit var tvEmpty: TextView
+    private lateinit var productAdapter: ProductAdapter
+
+    private val viewModel: CategoryListViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category_list)
 
-        val category = intent.getStringExtra(Extras.CATEGORY) ?: ""
-        val subcategory = intent.getStringExtra(Extras.SUBCATEGORY)
-        val brand = intent.getStringExtra(Extras.BRAND)
-        val tvTitle = findViewById<TextView>(R.id.tvCategoryTitle)
-        val rv = findViewById<RecyclerView>(R.id.rvCategoryProducts)
-        val drawer = findViewById<androidx.drawerlayout.widget.DrawerLayout>(R.id.drawerLayoutList)
-        val navView = findViewById<NavigationView>(R.id.navigationViewList)
-        val btnMenu2 = findViewById<android.widget.ImageButton>(R.id.btnMenu2)
+        val category = intent.getStringExtra(Extras.CATEGORY) ?: "Produk"
+        val drawer   = findViewById<DrawerLayout>(R.id.drawerLayoutList)
+        val navView  = findViewById<NavigationView>(R.id.navigationViewList)
+        val btnMenu  = findViewById<ImageButton>(R.id.btnMenu2)
 
-        btnMenu2.setOnClickListener {
+        tvTitle      = findViewById(R.id.tvCategoryTitle)
+        rvProducts   = findViewById(R.id.rvCategoryProducts)
+        progressBar  = findViewById(R.id.progressBar)
+        tvEmpty      = findViewById(R.id.tvEmpty)
+
+        tvTitle.text = category
+
+        // Drawer
+        btnMenu.setOnClickListener {
             drawer.openDrawer(navView)
         }
 
-        tvTitle.text = when {
-            !brand.isNullOrBlank() -> brand
-            !subcategory.isNullOrBlank() -> subcategory
-            category == "komputer" -> "Komputer"
-            category == "laptop" -> "Laptop"
-            category == "komponen" -> "Komponen"
-            else -> "Produk"
+        // Setup RecyclerView
+        productAdapter = ProductAdapter(emptyList()) { product ->
+            val intent = Intent(this, ProductDetailActivity::class.java).apply {
+                putExtra(Extras.PRODUCT_ID,    product.id)
+                putExtra(Extras.PRODUCT_NAME,  product.name)
+                putExtra(Extras.PRODUCT_PRICE, product.price)
+                putExtra(Extras.PRODUCT_IMAGE, product.image)
+                putExtra(Extras.PRODUCT_DESC,  product.description)
+            }
+            startActivity(intent)
         }
+        rvProducts.layoutManager = GridLayoutManager(this, 2)
+        rvProducts.adapter = productAdapter
 
-        rv.layoutManager = GridLayoutManager(this, 2)
-        val products = DataRepository.getProducts(category.ifBlank { null }, subcategory, brand)
-        rv.adapter = ProductAdapter(products) { product ->
-            val i = Intent(this, ProductDetailActivity::class.java)
-            i.putExtra(Extras.PRODUCT_ID, product.id)
-            i.putExtra(Extras.PRODUCT_NAME, product.name)
-            i.putExtra(Extras.PRODUCT_PRICE, product.price)
-            i.putExtra(Extras.PRODUCT_IMAGE, product.image)      // ← imageRes → image
-            product.specsText.takeIf { it.isNotEmpty() }?.let { i.putExtra(Extras.PRODUCT_SPECS_RES_ID, it) }
-            product.specsResId?.let { i.putExtra(Extras.PRODUCT_SPECS_RES_ID, it) }
-            product.specsResId?.let { i.putExtra(Extras.PRODUCT_SPECS_RES_ID, it) }
-            startActivity(i)
-        }
+        // Fetch produk berdasarkan kategori
+        viewModel.fetchByCategory(category)
+        observeViewModel()
 
+        // Navigation
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.nav_home -> startActivity(Intent(this, MainActivity::class.java))
-                R.id.nav_categories -> startActivity(Intent(this, CategoriesActivity::class.java))
-                R.id.nav_member -> startActivity(Intent(this, MemberActivity::class.java))
+                R.id.nav_home -> startActivity(
+                    Intent(this, MainActivity::class.java)
+                )
+                R.id.nav_categories -> startActivity(
+                    Intent(this, CategoriesActivity::class.java)
+                )
+                R.id.nav_member -> {
+                    if (SessionManager.isLoggedIn()) {
+                        startActivity(Intent(this, MemberActivity::class.java))
+                    } else {
+                        startActivity(Intent(this, LoginActivity::class.java))
+                    }
+                }
+                R.id.nav_tentang -> startActivity(
+                    Intent(this, AboutActivity::class.java)
+                )
                 R.id.nav_logout -> {
                     SessionManager.clearLogin()
+                    Toast.makeText(this, "Logout berhasil", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, LoginActivity::class.java))
+                    finish()
                 }
-                R.id.nav_tentang -> startActivity(Intent(this, AboutActivity::class.java))
             }
             drawer.closeDrawers()
             true
+        }
+    }
+
+    private fun observeViewModel() {
+        viewModel.productsState.observe(this) { state ->
+            when (state) {
+                is Resource.Loading -> {
+                    progressBar.visibility = View.VISIBLE
+                    rvProducts.visibility  = View.GONE
+                    tvEmpty.visibility     = View.GONE
+                }
+                is Resource.Success -> {
+                    progressBar.visibility = View.GONE
+                    val products = state.data ?: emptyList()
+                    if (products.isEmpty()) {
+                        rvProducts.visibility = View.GONE
+                        tvEmpty.visibility    = View.VISIBLE
+                        tvEmpty.text          = "Tidak ada produk di kategori ini"
+                    } else {
+                        rvProducts.visibility = View.VISIBLE
+                        tvEmpty.visibility    = View.GONE
+                        productAdapter.updateData(products)
+                    }
+                }
+                is Resource.Error -> {
+                    progressBar.visibility = View.GONE
+                    tvEmpty.visibility     = View.VISIBLE
+                    tvEmpty.text           = state.message
+                    Toast.makeText(this, state.message, Toast.LENGTH_LONG).show()
+                }
+            }
         }
     }
 }
