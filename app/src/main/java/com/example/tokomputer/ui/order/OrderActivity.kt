@@ -2,79 +2,130 @@ package com.example.tokomputer.ui.order
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tokomputer.R
+import com.example.tokomputer.model.CartItem
+import com.example.tokomputer.ui.payment.PaymentSuccessActivity
+import com.example.tokomputer.utils.Extras
+import com.example.tokomputer.utils.Resource
 
 class OrderActivity : AppCompatActivity() {
 
-    private val vm: OrderViewModel by viewModels()
     private lateinit var rvOrders: RecyclerView
     private lateinit var tvTotalAmount: TextView
     private lateinit var btnPay: Button
-    private lateinit var adapter: OrderAdapter
+    private lateinit var progressBar: ProgressBar
+    private lateinit var tvEmpty: TextView
+
+    private lateinit var orderAdapter: OrderAdapter
+    private val viewModel: OrderViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order)
 
-        rvOrders = findViewById(R.id.rvOrders)
+        initViews()
+        setupRecyclerView()
+        observeViewModel()
+        handleIncomingProduct()
+    }
+
+    private fun initViews() {
+        rvOrders      = findViewById(R.id.rvOrders)
         tvTotalAmount = findViewById(R.id.tvTotalAmount)
-        btnPay = findViewById(R.id.btnPay)
+        btnPay        = findViewById(R.id.btnPay)
+        progressBar   = findViewById(R.id.progressBar)
+        tvEmpty       = findViewById(R.id.tvEmpty)
+    }
 
-        adapter = OrderAdapter(mutableListOf(), onQtyChanged = { item ->
-            vm.updateQuantity(item.id, item.quantity)
-            refreshTotal()
-        }, onRemove = { item ->
-            vm.removeItem(item.id)
-            refreshTotal()
-        })
-
+    private fun setupRecyclerView() {
+        orderAdapter = OrderAdapter(
+            items      = emptyList(),
+            onIncrease = { item -> viewModel.increaseQuantity(item.productId) },
+            onDecrease = { item -> viewModel.decreaseQuantity(item.productId) }
+        )
         rvOrders.layoutManager = LinearLayoutManager(this)
-        rvOrders.adapter = adapter
+        rvOrders.adapter       = orderAdapter
+    }
 
-        vm.orders.observe(this) { list ->
-            adapter.updateList(list)
-            refreshTotal()
+    // Kalau masuk dari ProductDetailActivity → langsung add ke cart
+    private fun handleIncomingProduct() {
+        val productId    = intent.getIntExtra(Extras.PRODUCT_ID, 0)
+        val productName  = intent.getStringExtra(Extras.PRODUCT_NAME)
+        val productPrice = intent.getDoubleExtra(Extras.PRODUCT_PRICE, 0.0)
+        val productImage = intent.getStringExtra(Extras.PRODUCT_IMAGE)
+
+        if (productId != 0 && productName != null) {
+            viewModel.addToCart(
+                CartItem(
+                    productId    = productId,
+                    productName  = productName,
+                    productImage = productImage,
+                    price        = productPrice
+                )
+            )
         }
 
+        // Tombol bayar
         btnPay.setOnClickListener {
-            if (vm.totalAmount() <= 0.0) {
-                AlertDialog.Builder(this)
-                    .setTitle("Pesanan kosong")
-                    .setMessage("Silakan tambahkan produk terlebih dahulu")
-                    .setPositiveButton("OK", null)
-                    .show()
-                return@setOnClickListener
+            if (viewModel.isCartEmpty()) {
+                Toast.makeText(this, "Keranjang masih kosong", Toast.LENGTH_SHORT).show()
+            } else {
+                viewModel.checkout()
             }
+        }
+    }
 
-            AlertDialog.Builder(this)
-                .setTitle("Pembayaran Berhasil")
-                .setMessage("Terima kasih, pembayaran Anda berhasil.")
-                .setPositiveButton("OK") { _, _ ->
-                    vm.clearOrders()
-                    // Start PaymentSuccessActivity by class name to avoid static reference
-                    val className = "com.example.tokomputer.ui.transaction.PaymentSuccessActivity"
-                    val intent = Intent()
-                    intent.setClassName(this, className)
+    private fun observeViewModel() {
+
+        // Observe cart items
+        viewModel.cartItems.observe(this) { items ->
+            if (items.isEmpty()) {
+                rvOrders.visibility = View.GONE
+                tvEmpty.visibility  = View.VISIBLE
+            } else {
+                rvOrders.visibility = View.VISIBLE
+                tvEmpty.visibility  = View.GONE
+                orderAdapter.updateData(items)
+            }
+        }
+
+        // Observe total harga
+        viewModel.totalPrice.observe(this) { total ->
+            tvTotalAmount.text = "Rp ${String.format("%,.0f", total)}"
+        }
+
+        // Observe checkout state
+        viewModel.checkoutState.observe(this) { state ->
+            when (state) {
+                is Resource.Loading -> {
+                    progressBar.visibility = View.VISIBLE
+                    btnPay.isEnabled       = false
+                }
+                is Resource.Success -> {
+                    progressBar.visibility = View.GONE
+                    btnPay.isEnabled       = true
+                    val intent = Intent(this, PaymentSuccessActivity::class.java).apply {
+                        putExtra("transaction_id",    state.data?.id ?: 0)
+                        putExtra("total_price",       state.data?.totalPrice ?: 0.0)
+                    }
                     startActivity(intent)
                     finish()
                 }
-                .show()
+                is Resource.Error -> {
+                    progressBar.visibility = View.GONE
+                    btnPay.isEnabled       = true
+                    Toast.makeText(this, state.message, Toast.LENGTH_LONG).show()
+                }
+            }
         }
-    }
-
-    private fun refreshTotal() {
-        val total = vm.totalAmount()
-        tvTotalAmount.text = formatRupiah(total)
-    }
-
-    private fun formatRupiah(value: Double): String {
-        return "Rp" + String.format(java.util.Locale("id", "ID"), "%,.0f", value)
     }
 }
