@@ -7,27 +7,43 @@
     android:padding="24dp"
     android:background="#F7FFF9">
 
+    <!-- Icon sukses -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pembayaran Berhasil"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="#1C3C58" />
+        android:text="✅"
+        android:textSize="64sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Pembayaran Berhasil"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#1C3C58" />
+
+    <!-- Info transaksi (diisi dari Activity) -->
+    <TextView
+        android:id="@+id/tvSuccessMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:lineSpacingExtra="4dp"
         android:text="Terima kasih sudah berbelanja di TOKOMPUTER"
-        android:layout_marginTop="8dp"
-        android:textColor="#333333" />
+        android:textColor="#333333"
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/btnDone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:backgroundTint="#1C3C58"
-        android:text="Selesai"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:text="Kembali ke Beranda"
         android:textColor="#FFFFFF" />
+
 </LinearLayout>

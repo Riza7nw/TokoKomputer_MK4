@@ -7,68 +7,55 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.tokomputer.R
-import java.util.Locale
-import kotlin.math.max
+import com.example.tokomputer.model.CartItem
 
 class OrderAdapter(
-    private var items: MutableList<OrderItem>,
-    private val onQtyChanged: (OrderItem) -> Unit,
-    private val onRemove: (OrderItem) -> Unit
-) : RecyclerView.Adapter<OrderAdapter.VH>() {
+    private var items: List<CartItem>,
+    private val onIncrease: (CartItem) -> Unit,
+    private val onDecrease: (CartItem) -> Unit
+) : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
 
-    inner class VH(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val iv: ImageView = itemView.findViewById(R.id.ivOrderImage)
-        val tvName: TextView = itemView.findViewById(R.id.tvOrderName)
-        val tvPrice: TextView = itemView.findViewById(R.id.tvOrderPrice)
-        val tvQty: TextView = itemView.findViewById(R.id.tvQuantity)
-        val btnDec: Button = itemView.findViewById(R.id.btnDecrease)
-        val btnInc: Button = itemView.findViewById(R.id.btnIncrease)
-        val tvItemTotal: TextView = itemView.findViewById(R.id.tvItemTotal)
+    inner class OrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val ivOrderImage: ImageView = itemView.findViewById(R.id.ivOrderImage)
+        val tvOrderName: TextView   = itemView.findViewById(R.id.tvOrderName)
+        val tvOrderPrice: TextView  = itemView.findViewById(R.id.tvOrderPrice)
+        val tvQuantity: TextView    = itemView.findViewById(R.id.tvQuantity)
+        val tvItemTotal: TextView   = itemView.findViewById(R.id.tvItemTotal)
+        val btnIncrease: Button     = itemView.findViewById(R.id.btnIncrease)
+        val btnDecrease: Button     = itemView.findViewById(R.id.btnDecrease)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.item_order, parent, false)
-        return VH(v)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_order, parent, false)
+        return OrderViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: VH, position: Int) {
+    override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val item = items[position]
-        // use provided imageRes if available, otherwise use safe fallback drawable
-        val imgRes = item.imageRes ?: R.drawable.laptop
-        holder.iv.setImageResource(imgRes)
-        holder.tvName.text = item.name
-        holder.tvPrice.text = formatRupiah(item.unitPrice)
-        holder.tvQty.text = item.quantity.toString()
-        holder.tvItemTotal.text = formatRupiah(item.totalPrice())
 
-        holder.btnInc.setOnClickListener {
-            item.quantity += 1
-            holder.tvQty.text = item.quantity.toString()
-            holder.tvItemTotal.text = formatRupiah(item.totalPrice())
-            onQtyChanged(item)
-        }
-        holder.btnDec.setOnClickListener {
-            item.quantity = max(1, item.quantity - 1)
-            holder.tvQty.text = item.quantity.toString()
-            holder.tvItemTotal.text = formatRupiah(item.totalPrice())
-            onQtyChanged(item)
-        }
+        holder.tvOrderName.text  = item.productName
+        holder.tvOrderPrice.text = "Rp ${String.format("%,.0f", item.price)}"
+        holder.tvQuantity.text   = item.quantity.toString()
+        holder.tvItemTotal.text  = "Rp ${String.format("%,.0f", item.subtotal)}"
 
-        holder.itemView.setOnLongClickListener {
-            onRemove(item)
-            true
-        }
+        Glide.with(holder.itemView.context)
+            .load(item.productImage)
+            .placeholder(R.drawable.ic_computer)
+            .error(R.drawable.ic_computer)
+            .centerCrop()
+            .into(holder.ivOrderImage)
+
+        holder.btnIncrease.setOnClickListener { onIncrease(item) }
+        holder.btnDecrease.setOnClickListener { onDecrease(item) }
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount() = items.size
 
-    fun updateList(newList: MutableList<OrderItem>) {
-        items = newList
+    fun updateData(newItems: List<CartItem>) {
+        items = newItems
         notifyDataSetChanged()
-    }
-
-    private fun formatRupiah(value: Double): String {
-        return "Rp" + String.format(Locale("id", "ID"), "%,.0f", value)
     }
 }

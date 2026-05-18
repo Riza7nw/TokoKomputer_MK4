@@ -1,8 +1,6 @@
 package com.example.tokomputer.data.remote.dto.request
 
 data class TransactionRequest(
-    val name: String,
-    val phone: String,
     val items: List<TransactionItemRequest>
 )
 
