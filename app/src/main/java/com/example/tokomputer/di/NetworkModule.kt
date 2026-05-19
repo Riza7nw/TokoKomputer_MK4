@@ -14,7 +14,9 @@ object NetworkModule {
     // Emulator  → http://10.0.2.2:8000/api/
     // Device HP → http://192.168.x.x:8000/api/ (IP laptop kamu)
     // Production → https://domain-kamu.com/api/
+//    private const val BASE_URL = "http://192.168.137.1:8000/api/"
     private const val BASE_URL = "http://10.0.2.2:8000/api/"
+
 
     // Logging untuk debug di Logcat
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
