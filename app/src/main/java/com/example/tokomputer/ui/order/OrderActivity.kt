@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tokomputer.R
 import com.example.tokomputer.model.CartItem
+import com.example.tokomputer.ui.main.MainActivity
 import com.example.tokomputer.ui.payment.PaymentSuccessActivity
 import com.example.tokomputer.utils.Extras
 import com.example.tokomputer.utils.Resource
@@ -22,6 +24,7 @@ class OrderActivity : AppCompatActivity() {
     private lateinit var rvOrders: RecyclerView
     private lateinit var tvTotalAmount: TextView
     private lateinit var btnPay: Button
+    private lateinit var btnBack: ImageButton
     private lateinit var progressBar: ProgressBar
     private lateinit var tvEmpty: TextView
 
@@ -31,7 +34,6 @@ class OrderActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order)
-
         initViews()
         setupRecyclerView()
         observeViewModel()
@@ -42,8 +44,18 @@ class OrderActivity : AppCompatActivity() {
         rvOrders      = findViewById(R.id.rvOrders)
         tvTotalAmount = findViewById(R.id.tvTotalAmount)
         btnPay        = findViewById(R.id.btnPay)
+        btnBack       = findViewById(R.id.btnBack)
         progressBar   = findViewById(R.id.progressBar)
         tvEmpty       = findViewById(R.id.tvEmpty)
+
+        btnBack.setOnClickListener {
+            // Kembali ke MainActivity
+            val intent = Intent(this, MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            }
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun setupRecyclerView() {
@@ -56,7 +68,6 @@ class OrderActivity : AppCompatActivity() {
         rvOrders.adapter       = orderAdapter
     }
 
-    // Kalau masuk dari ProductDetailActivity → langsung add ke cart
     private fun handleIncomingProduct() {
         val productId    = intent.getIntExtra(Extras.PRODUCT_ID, 0)
         val productName  = intent.getStringExtra(Extras.PRODUCT_NAME)
@@ -74,7 +85,6 @@ class OrderActivity : AppCompatActivity() {
             )
         }
 
-        // Tombol bayar
         btnPay.setOnClickListener {
             if (viewModel.isCartEmpty()) {
                 Toast.makeText(this, "Keranjang masih kosong", Toast.LENGTH_SHORT).show()
@@ -85,8 +95,6 @@ class OrderActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-
-        // Observe cart items
         viewModel.cartItems.observe(this) { items ->
             if (items.isEmpty()) {
                 rvOrders.visibility = View.GONE
@@ -98,12 +106,10 @@ class OrderActivity : AppCompatActivity() {
             }
         }
 
-        // Observe total harga
         viewModel.totalPrice.observe(this) { total ->
             tvTotalAmount.text = "Rp ${String.format("%,.0f", total)}"
         }
 
-        // Observe checkout state
         viewModel.checkoutState.observe(this) { state ->
             when (state) {
                 is Resource.Loading -> {
@@ -114,8 +120,8 @@ class OrderActivity : AppCompatActivity() {
                     progressBar.visibility = View.GONE
                     btnPay.isEnabled       = true
                     val intent = Intent(this, PaymentSuccessActivity::class.java).apply {
-                        putExtra("transaction_id",    state.data?.id ?: 0)
-                        putExtra("total_price",       state.data?.totalPrice ?: 0.0)
+                        putExtra("transaction_id", state.data?.id ?: 0)
+                        putExtra("total_price",    state.data?.totalPrice ?: 0.0)
                     }
                     startActivity(intent)
                     finish()

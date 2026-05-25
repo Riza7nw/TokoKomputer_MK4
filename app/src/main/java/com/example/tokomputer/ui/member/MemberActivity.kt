@@ -21,7 +21,7 @@ class MemberActivity : AppCompatActivity() {
     private lateinit var tvAvatar: TextView
     private lateinit var tvMemberName: TextView
     private lateinit var tvMemberEmail: TextView
-    private lateinit var tvMemberId: TextView
+//    private lateinit var tvMemberId: TextView
     private lateinit var tvMemberNameDetail: TextView
     private lateinit var tvMemberEmailDetail: TextView
     private lateinit var tvMemberPhone: TextView
@@ -46,7 +46,7 @@ class MemberActivity : AppCompatActivity() {
         tvAvatar            = findViewById(R.id.tvAvatar)
         tvMemberName        = findViewById(R.id.tvMemberName)
         tvMemberEmail       = findViewById(R.id.tvMemberEmail)
-        tvMemberId          = findViewById(R.id.tvMemberId)
+//        tvMemberId          = findViewById(R.id.tvMemberId)
         tvMemberNameDetail  = findViewById(R.id.tvMemberNameDetail)
         tvMemberEmailDetail = findViewById(R.id.tvMemberEmailDetail)
         tvMemberPhone       = findViewById(R.id.tvMemberPhone)
@@ -129,7 +129,7 @@ class MemberActivity : AppCompatActivity() {
         tvAvatar.text           = initial
         tvMemberName.text       = user.name
         tvMemberEmail.text      = user.email
-        tvMemberId.text         = "#${user.id}"
+//        tvMemberId.text         = "#${user.id}"
         tvMemberNameDetail.text = user.name
         tvMemberEmailDetail.text = user.email
         tvMemberPhone.text      = user.phone ?: "-"

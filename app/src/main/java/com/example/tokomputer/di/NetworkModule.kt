@@ -12,7 +12,8 @@ object NetworkModule {
 
     // GANTI dengan IP WiFi laptop kamu
     // Cek dengan: ipconfig (Windows) atau ifconfig (Mac/Linux)
-    private const val BASE_URL = "http://192.168.1.20:8000/api/"
+//    private const val BASE_URL = "http://192.168.1.20:8000/api/"
+    private const val BASE_URL = "http://192.168.137.1:8000/api/"
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY

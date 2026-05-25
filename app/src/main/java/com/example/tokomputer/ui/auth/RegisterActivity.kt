@@ -19,6 +19,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var etEmail: EditText
     private lateinit var etPassword: EditText
     private lateinit var etConfirmPassword: EditText
+    private lateinit var etPhone: EditText
     private lateinit var btnRegister: Button
     private lateinit var btnLoginTab: Button
     private lateinit var btnRegisterTab: Button
@@ -30,7 +31,6 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-
         initViews()
         observeViewModel()
         setupClickListeners()
@@ -41,6 +41,7 @@ class RegisterActivity : AppCompatActivity() {
         etEmail           = findViewById(R.id.etEmail)
         etPassword        = findViewById(R.id.etPassword)
         etConfirmPassword = findViewById(R.id.etConfirmPassword)
+        etPhone           = findViewById(R.id.etPhone)
         btnRegister       = findViewById(R.id.btnRegister)
         btnLoginTab       = findViewById(R.id.btnLoginTab)
         btnRegisterTab    = findViewById(R.id.btnRegisterTab)
@@ -50,52 +51,62 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun setupClickListeners() {
 
-        // Tombol Register
         btnRegister.setOnClickListener {
             val name            = etName.text.toString().trim()
             val email           = etEmail.text.toString().trim()
             val password        = etPassword.text.toString().trim()
             val confirmPassword = etConfirmPassword.text.toString().trim()
+            val phone           = etPhone.text.toString().trim()
 
-            // Phone belum ada di UI → pakai string kosong dulu
-            // Nanti bisa tambah field etPhone di XML
-            val phone = ""
+            // Validasi lokal sebelum kirim ke server
+            if (name.isEmpty()) {
+                etName.error = "Nama wajib diisi"
+                return@setOnClickListener
+            }
+            if (email.isEmpty()) {
+                etEmail.error = "Email wajib diisi"
+                return@setOnClickListener
+            }
+            if (password.isEmpty()) {
+                etPassword.error = "Password wajib diisi"
+                return@setOnClickListener
+            }
+            if (password != confirmPassword) {
+                etConfirmPassword.error = "Password tidak sama"
+                return@setOnClickListener
+            }
+            if (phone.isEmpty()) {
+                etPhone.error = "Nomor HP wajib diisi"
+                return@setOnClickListener
+            }
 
             viewModel.register(name, email, password, confirmPassword, phone)
         }
 
-        // Tab → pindah ke Login
-        btnLoginTab.setOnClickListener {
-            goToLogin()
-        }
-
-        // Link → pindah ke Login
-        tvLoginNow.setOnClickListener {
-            goToLogin()
-        }
+        btnLoginTab.setOnClickListener { goToLogin() }
+        tvLoginNow.setOnClickListener  { goToLogin() }
     }
 
     private fun observeViewModel() {
         viewModel.registerState.observe(this) { state ->
             when (state) {
                 is Resource.Loading -> {
-                    progressBar.visibility  = View.VISIBLE
-                    btnRegister.isEnabled   = false
+                    progressBar.visibility = View.VISIBLE
+                    btnRegister.isEnabled  = false
                 }
                 is Resource.Success -> {
-                    progressBar.visibility  = View.GONE
-                    btnRegister.isEnabled   = true
+                    progressBar.visibility = View.GONE
+                    btnRegister.isEnabled  = true
                     Toast.makeText(
                         this,
                         "Register berhasil! Cek email untuk OTP",
                         Toast.LENGTH_LONG
                     ).show()
-                    // Pindah ke OTP / Login
                     goToOtp()
                 }
                 is Resource.Error -> {
-                    progressBar.visibility  = View.GONE
-                    btnRegister.isEnabled   = true
+                    progressBar.visibility = View.GONE
+                    btnRegister.isEnabled  = true
                     Toast.makeText(this, state.message, Toast.LENGTH_LONG).show()
                 }
             }
@@ -108,10 +119,10 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun goToOtp() {
-        // Kirim email ke OTP Activity
         val email = etEmail.text.toString().trim()
-        val intent = Intent(this, OtpActivity::class.java)
-        intent.putExtra("email", email)
+        val intent = Intent(this, OtpActivity::class.java).apply {
+            putExtra("email", email)
+        }
         startActivity(intent)
         finish()
     }

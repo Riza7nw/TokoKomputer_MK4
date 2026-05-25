@@ -17,66 +17,84 @@ class OrderViewModel : ViewModel() {
 
     private val repository = TransactionRepository(NetworkModule.apiService)
 
-    private val _cartItems = MutableLiveData<List<CartItem>>(emptyList())
+    private val _cartItems = MutableLiveData<List<CartItem>>(staticCart)
     val cartItems: LiveData<List<CartItem>> = _cartItems
 
-    private val _totalPrice = MutableLiveData(0.0)
+    private val _totalPrice = MutableLiveData(calculateTotal())
     val totalPrice: LiveData<Double> = _totalPrice
 
     private val _checkoutState = MutableLiveData<Resource<TransactionModel>>()
     val checkoutState: LiveData<Resource<TransactionModel>> = _checkoutState
 
+    init {
+        // Sync dari static cart saat ViewModel dibuat
+        _cartItems.value = staticCart.toList()
+        recalculateTotal()
+    }
+
+    // ===== STATIC CART — persist selama app hidup =====
+    companion object {
+        private val staticCart = mutableListOf<CartItem>()
+
+        fun addToStaticCart(item: CartItem) {
+            val existing = staticCart.find { it.productId == item.productId }
+            if (existing != null) {
+                existing.quantity++
+            } else {
+                staticCart.add(item)
+            }
+        }
+
+        fun clearStaticCart() {
+            staticCart.clear()
+        }
+
+        private fun calculateTotal(): Double {
+            return staticCart.sumOf { it.subtotal }
+        }
+    }
+
     // ===== CART MANAGEMENT =====
 
     fun addToCart(item: CartItem) {
-        val current = _cartItems.value?.toMutableList() ?: mutableListOf()
-        val existing = current.find { it.productId == item.productId }
-        if (existing != null) {
-            existing.quantity++
-        } else {
-            current.add(item)
-        }
-        _cartItems.value = current
+        addToStaticCart(item)
+        _cartItems.value = staticCart.toList()
         recalculateTotal()
     }
 
     fun increaseQuantity(productId: Int) {
-        val current = _cartItems.value?.toMutableList() ?: return
-        current.find { it.productId == productId }?.let { it.quantity++ } // ← fix
-        _cartItems.value = current
+        staticCart.find { it.productId == productId }?.let { it.quantity++ }
+        _cartItems.value = staticCart.toList()
         recalculateTotal()
     }
 
     fun decreaseQuantity(productId: Int) {
-        val current = _cartItems.value?.toMutableList() ?: return
-        val item = current.find { it.productId == productId } ?: return
+        val item = staticCart.find { it.productId == productId } ?: return
         if (item.quantity > 1) {
             item.quantity--
         } else {
-            current.remove(item)
+            staticCart.remove(item)
         }
-        _cartItems.value = current
+        _cartItems.value = staticCart.toList()
         recalculateTotal()
     }
 
     fun removeItem(productId: Int) {
-        val current = _cartItems.value?.toMutableList() ?: return
-        current.removeAll { it.productId == productId }
-        _cartItems.value = current
+        staticCart.removeAll { it.productId == productId }
+        _cartItems.value = staticCart.toList()
         recalculateTotal()
     }
 
     private fun recalculateTotal() {
-        _totalPrice.value = _cartItems.value?.sumOf { it.subtotal } ?: 0.0
+        _totalPrice.value = staticCart.sumOf { it.subtotal }
     }
 
-    fun isCartEmpty(): Boolean = _cartItems.value.isNullOrEmpty()
+    fun isCartEmpty(): Boolean = staticCart.isEmpty()
 
     // ===== CHECKOUT =====
 
     fun checkout() {
-        val items = _cartItems.value
-        if (items.isNullOrEmpty()) {
+        if (staticCart.isEmpty()) {
             _checkoutState.value = Resource.Error("Keranjang kosong")
             return
         }
@@ -85,7 +103,7 @@ class OrderViewModel : ViewModel() {
 
         viewModelScope.launch {
             val request = TransactionRequest(
-                items = items.map {
+                items = staticCart.map {
                     TransactionItemRequest(
                         product_id = it.productId,
                         quantity   = it.quantity
@@ -93,6 +111,9 @@ class OrderViewModel : ViewModel() {
                 }
             )
             val result = repository.createTransaction(request)
+            if (result is Resource.Success) {
+                clearStaticCart() // Bersihkan cart setelah berhasil
+            }
             _checkoutState.value = result
         }
     }

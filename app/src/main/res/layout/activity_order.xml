@@ -1,21 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/soft_blue"
     android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".ui.order.OrderActivity">
+    android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvOrderTitle"
-        android:layout_width="wrap_content"
+    <!-- Header dengan Back -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pesanan Saya"
-        android:textColor="#1C3C58"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="8dp">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_media_previous"
+            android:contentDescription="Back"
+            app:tint="#1C3C58"
+            xmlns:app="http://schemas.android.com/apk/res-auto"/>
+
+        <TextView
+            android:id="@+id/tvOrderTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Pesanan Saya"
+            android:textColor="#1C3C58"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginStart="8dp"/>
+
+    </LinearLayout>
 
     <!-- Loading -->
     <ProgressBar
@@ -23,7 +43,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="32dp"
         android:visibility="gone" />
 
     <!-- Empty state -->
@@ -57,7 +76,6 @@
         android:paddingTop="12dp">
 
         <TextView
-            android:id="@+id/tvTotalLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Total Harga"
