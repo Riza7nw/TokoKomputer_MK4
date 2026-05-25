@@ -155,4 +155,10 @@ class MainActivity : AppCompatActivity() {
         }
         startActivity(intent)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Auto logout saat app ditutup
+        SessionManager.clearLogin()
+    }
 }

@@ -9,15 +9,31 @@ object SessionManager {
     private const val KEY_TOKEN    = "auth_token"
     private const val KEY_NAME     = "user_name"
     private const val KEY_EMAIL    = "user_email"
+    private const val KEY_RUNNING  = "app_running"  // ← tambah ini
 
     private var prefs: SharedPreferences? = null
 
-    // Dipanggil sekali di MainActivity atau Application
     fun init(context: Context) {
         if (prefs == null) {
             prefs = context.applicationContext
                 .getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         }
+    }
+
+    // Dipanggil saat app start — kalau sebelumnya tidak di-close normal, clear token
+    fun checkFreshStart() {
+        val wasRunning = prefs?.getBoolean(KEY_RUNNING, false) ?: false
+        if (wasRunning) {
+            // App sebelumnya tidak ditutup normal (crash/kill) → clear token
+            clearLogin()
+        }
+        // Tandai app sedang berjalan
+        prefs?.edit()?.putBoolean(KEY_RUNNING, true)?.apply()
+    }
+
+    // Dipanggil saat app ditutup normal
+    fun setAppClosed() {
+        prefs?.edit()?.putBoolean(KEY_RUNNING, false)?.apply()
     }
 
     fun saveToken(token: String) {
@@ -40,15 +56,14 @@ object SessionManager {
         prefs?.edit()?.putString(KEY_EMAIL, email)?.apply()
     }
 
-    fun getUserName(): String? {
-        return prefs?.getString(KEY_NAME, null)
-    }
-
-    fun getUserEmail(): String? {
-        return prefs?.getString(KEY_EMAIL, null)
-    }
+    fun getUserName(): String? = prefs?.getString(KEY_NAME, null)
+    fun getUserEmail(): String? = prefs?.getString(KEY_EMAIL, null)
 
     fun clearLogin() {
-        prefs?.edit()?.clear()?.apply()
+        prefs?.edit()
+            ?.remove(KEY_TOKEN)
+            ?.remove(KEY_NAME)
+            ?.remove(KEY_EMAIL)
+            ?.apply()
     }
 }
