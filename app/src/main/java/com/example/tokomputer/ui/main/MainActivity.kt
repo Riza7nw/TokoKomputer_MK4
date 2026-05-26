@@ -7,6 +7,7 @@ import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -41,12 +42,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // SessionManager.init sudah di App.kt — tidak perlu di sini lagi
         setContentView(R.layout.activity_main)
         initViews()
         setupRecyclerView()
         setupNavigation()
         observeViewModel()
+        setupBackPress()
+    }
+
+    private fun setupBackPress() {
+        onBackPressedDispatcher.addCallback(this) {
+            // User tekan back di MainActivity = keluar app → clear session
+            SessionManager.setAppClosed()
+            SessionManager.clearLogin()
+            finish()
+        }
     }
 
     private fun initViews() {
@@ -149,16 +159,11 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, ProductDetailActivity::class.java).apply {
             putExtra(Extras.PRODUCT_ID,    product.id)
             putExtra(Extras.PRODUCT_NAME,  product.name)
+            putExtra(Extras.PRODUCT_BRAND, product.brand)
             putExtra(Extras.PRODUCT_PRICE, product.price)
             putExtra(Extras.PRODUCT_IMAGE, product.image)
             putExtra(Extras.PRODUCT_DESC,  product.description)
         }
         startActivity(intent)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        // Auto logout saat app ditutup
-        SessionManager.clearLogin()
     }
 }

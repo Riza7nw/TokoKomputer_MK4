@@ -5,11 +5,11 @@ import android.content.SharedPreferences
 
 object SessionManager {
 
-    private const val PREF_NAME    = "tokomputer_prefs"
-    private const val KEY_TOKEN    = "auth_token"
-    private const val KEY_NAME     = "user_name"
-    private const val KEY_EMAIL    = "user_email"
-    private const val KEY_RUNNING  = "app_running"  // ← tambah ini
+    private const val PREF_NAME   = "tokomputer_prefs"
+    private const val KEY_TOKEN   = "auth_token"
+    private const val KEY_NAME    = "user_name"
+    private const val KEY_EMAIL   = "user_email"
+    private const val KEY_RUNNING = "app_running"
 
     private var prefs: SharedPreferences? = null
 
@@ -20,18 +20,16 @@ object SessionManager {
         }
     }
 
-    // Dipanggil saat app start — kalau sebelumnya tidak di-close normal, clear token
     fun checkFreshStart() {
         val wasRunning = prefs?.getBoolean(KEY_RUNNING, false) ?: false
         if (wasRunning) {
-            // App sebelumnya tidak ditutup normal (crash/kill) → clear token
+            // App di-kill / install ulang tanpa ditutup normal → clear token
             clearLogin()
         }
         // Tandai app sedang berjalan
         prefs?.edit()?.putBoolean(KEY_RUNNING, true)?.apply()
     }
 
-    // Dipanggil saat app ditutup normal
     fun setAppClosed() {
         prefs?.edit()?.putBoolean(KEY_RUNNING, false)?.apply()
     }
@@ -40,13 +38,9 @@ object SessionManager {
         prefs?.edit()?.putString(KEY_TOKEN, token)?.apply()
     }
 
-    fun getToken(): String? {
-        return prefs?.getString(KEY_TOKEN, null)
-    }
+    fun getToken(): String? = prefs?.getString(KEY_TOKEN, null)
 
-    fun isLoggedIn(): Boolean {
-        return !getToken().isNullOrEmpty()
-    }
+    fun isLoggedIn(): Boolean = !getToken().isNullOrEmpty()
 
     fun saveUserName(name: String) {
         prefs?.edit()?.putString(KEY_NAME, name)?.apply()

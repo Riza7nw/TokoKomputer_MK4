@@ -21,6 +21,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
     private lateinit var imgProduct: ImageView
     private lateinit var tvProductName: TextView
+    private lateinit var tvProductBrand: TextView
     private lateinit var tvProductPrice: TextView
     private lateinit var tvProductDesc: TextView
     private lateinit var btnBuyNow: Button
@@ -42,6 +43,7 @@ class ProductDetailActivity : AppCompatActivity() {
     private fun initViews() {
         imgProduct     = findViewById(R.id.imgProduct)
         tvProductName  = findViewById(R.id.tvProductName)
+        tvProductBrand = findViewById(R.id.tvProductBrand)
         tvProductPrice = findViewById(R.id.tvProductPrice)
         tvProductDesc  = findViewById(R.id.tvProductDesc)
         btnBuyNow      = findViewById(R.id.btnBuyNow)
@@ -57,6 +59,9 @@ class ProductDetailActivity : AppCompatActivity() {
         val productDesc = intent.getStringExtra(Extras.PRODUCT_DESC)
             ?: "Tidak ada deskripsi tersedia"
 
+        val productBrand = intent.getStringExtra(Extras.PRODUCT_BRAND)
+
+        tvProductBrand.text = if (!productBrand.isNullOrEmpty()) "Brand: $productBrand" else ""
         tvProductName.text  = productName
         tvProductPrice.text = "Rp ${String.format("%,.0f", productPrice)}"
         tvProductDesc.text  = productDesc

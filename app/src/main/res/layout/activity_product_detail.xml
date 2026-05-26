@@ -141,6 +141,15 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
+                <!-- Brand Produk -->
+                <TextView
+                    android:id="@+id/tvProductBrand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="#90CAF9"
+                    android:textSize="14sp" />
+
                 <!-- Harga Produk -->
                 <TextView
                     android:id="@+id/tvProductPrice"
