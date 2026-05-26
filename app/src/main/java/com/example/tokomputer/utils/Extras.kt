@@ -3,6 +3,7 @@ package com.example.tokomputer.utils
 object Extras {
     const val PRODUCT_ID    = "product_id"
     const val PRODUCT_NAME  = "product_name"
+    const val PRODUCT_BRAND  = "product_brand"
     const val PRODUCT_PRICE = "product_price"
     const val PRODUCT_IMAGE = "product_image"
     const val PRODUCT_DESC  = "product_desc"
