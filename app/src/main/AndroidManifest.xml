@@ -75,6 +75,9 @@
             android:name=".ui.about.AboutActivity"
             android:exported="false" />
 
+        <activity android:name=".ui.category.BrandsActivity" />
+        <activity android:name=".ui.category.BrandProductListActivity" />
+
     </application>
 
 </manifest>

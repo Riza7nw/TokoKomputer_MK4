@@ -57,6 +57,12 @@ interface ApiService {
     suspend fun createTransaction(
         @Body request: TransactionRequest
     ): Response<ApiResponse<TransactionModel>>
+
+    @GET("categories")
+    suspend fun getCategories(): Response<ApiResponse<List<String>>>
+
+    @GET("brands")
+    suspend fun getBrands(): Response<ApiResponse<List<String>>>
 }
 
 // Data class khusus untuk response login

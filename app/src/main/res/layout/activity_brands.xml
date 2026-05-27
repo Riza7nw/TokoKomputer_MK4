@@ -2,7 +2,7 @@
 <androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/drawerLayoutCat"
+    android:id="@+id/drawerLayoutBrands"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0F1724">
@@ -11,9 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Header -->
         <ImageButton
-            android:id="@+id/btnMenu3"
+            android:id="@+id/btnMenuBrands"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_margin="12dp"
@@ -28,17 +27,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Kategori Produk"
+            android:gravity="center"
+            android:text="Brand Produk"
             android:textColor="#E6F3FF"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:gravity="center"
-            app:layout_constraintEnd_toStartOf="@id/btnCartCat"
-            app:layout_constraintStart_toEndOf="@id/btnMenu3"
+            app:layout_constraintEnd_toStartOf="@id/btnCartBrands"
+            app:layout_constraintStart_toEndOf="@id/btnMenuBrands"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/btnCartCat"
+            android:id="@+id/btnCartBrands"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_margin="12dp"
@@ -49,9 +48,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="#E6F3FF" />
 
-        <!-- Loading -->
         <ProgressBar
-            android:id="@+id/progressBarCat"
+            android:id="@+id/progressBarBrands"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
@@ -60,12 +58,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Empty -->
         <TextView
-            android:id="@+id/tvEmptyCat"
+            android:id="@+id/tvEmptyBrands"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tidak ada kategori"
+            android:text="Tidak ada brand"
             android:textColor="#AAAAAA"
             android:textSize="16sp"
             android:visibility="gone"
@@ -74,7 +71,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- ScrollView dengan container dinamis -->
         <ScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -82,10 +78,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnMenu3">
+            app:layout_constraintTop_toBottomOf="@id/btnMenuBrands">
 
             <LinearLayout
-                android:id="@+id/categoryContainer"
+                android:id="@+id/brandContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -99,7 +95,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navigationViewCat"
+        android:id="@+id/navigationViewBrands"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
