@@ -22,21 +22,21 @@ import com.example.tokomputer.utils.Extras
 import com.example.tokomputer.utils.Resource
 import com.google.android.material.navigation.NavigationView
 
-class CategoriesActivity : AppCompatActivity() {
+class BrandsActivity : AppCompatActivity() {
 
-    private val viewModel: CategoriesViewModel by viewModels()
+    private val viewModel: BrandsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_categories)
+        setContentView(R.layout.activity_brands)
 
-        val drawer      = findViewById<DrawerLayout>(R.id.drawerLayoutCat)
-        val navView     = findViewById<NavigationView>(R.id.navigationViewCat)
-        val btnMenu     = findViewById<ImageButton>(R.id.btnMenu3)
-        val btnCart     = findViewById<ImageButton>(R.id.btnCartCat)
-        val container   = findViewById<LinearLayout>(R.id.categoryContainer)
-        val progressBar = findViewById<ProgressBar>(R.id.progressBarCat)
-        val tvEmpty     = findViewById<TextView>(R.id.tvEmptyCat)
+        val drawer      = findViewById<DrawerLayout>(R.id.drawerLayoutBrands)
+        val navView     = findViewById<NavigationView>(R.id.navigationViewBrands)
+        val btnMenu     = findViewById<ImageButton>(R.id.btnMenuBrands)
+        val btnCart     = findViewById<ImageButton>(R.id.btnCartBrands)
+        val container   = findViewById<LinearLayout>(R.id.brandContainer)
+        val progressBar = findViewById<ProgressBar>(R.id.progressBarBrands)
+        val tvEmpty     = findViewById<TextView>(R.id.tvEmptyBrands)
 
         btnMenu.setOnClickListener { drawer.openDrawer(navView) }
 
@@ -49,7 +49,7 @@ class CategoriesActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.categoriesState.observe(this) { state ->
+        viewModel.brandsState.observe(this) { state ->
             when (state) {
                 is Resource.Loading -> {
                     progressBar.visibility = View.VISIBLE
@@ -58,14 +58,14 @@ class CategoriesActivity : AppCompatActivity() {
                 }
                 is Resource.Success -> {
                     progressBar.visibility = View.GONE
-                    val categories = state.data ?: emptyList()
-                    if (categories.isEmpty()) {
+                    val brands = state.data ?: emptyList()
+                    if (brands.isEmpty()) {
                         tvEmpty.visibility   = View.VISIBLE
                         container.visibility = View.GONE
                     } else {
                         tvEmpty.visibility   = View.GONE
                         container.visibility = View.VISIBLE
-                        buildCategoryCards(container, categories)
+                        buildBrandCards(container, brands)
                     }
                 }
                 is Resource.Error -> {
@@ -79,8 +79,8 @@ class CategoriesActivity : AppCompatActivity() {
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_home       -> startActivity(Intent(this, MainActivity::class.java))
-                R.id.nav_categories -> { /* sudah di sini */ }
-                R.id.nav_brands     -> startActivity(Intent(this, BrandsActivity::class.java))
+                R.id.nav_categories -> startActivity(Intent(this, CategoriesActivity::class.java))
+                R.id.nav_brands     -> { /* sudah di sini */ }
                 R.id.nav_member     -> {
                     if (SessionManager.isLoggedIn())
                         startActivity(Intent(this, MemberActivity::class.java))
@@ -100,14 +100,14 @@ class CategoriesActivity : AppCompatActivity() {
         }
     }
 
-    private fun buildCategoryCards(container: LinearLayout, categories: List<String>) {
+    private fun buildBrandCards(container: LinearLayout, brands: List<String>) {
         container.removeAllViews()
-        categories.forEach { category ->
+        brands.forEach { brand ->
             val card = layoutInflater.inflate(R.layout.item_category_card, container, false)
-            card.findViewById<TextView>(R.id.tvCategoryName).text = category
+            card.findViewById<TextView>(R.id.tvCategoryName).text = brand
             card.setOnClickListener {
-                val intent = Intent(this, CategoryListActivity::class.java)
-                intent.putExtra(Extras.CATEGORY, category)
+                val intent = Intent(this, BrandProductListActivity::class.java)
+                intent.putExtra(Extras.BRAND, brand)
                 startActivity(intent)
             }
             container.addView(card)

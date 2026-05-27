@@ -10,7 +10,7 @@ import com.example.tokomputer.model.ProductModel
 import com.example.tokomputer.utils.Resource
 import kotlinx.coroutines.launch
 
-class CategoryListViewModel : ViewModel() {
+class BrandListViewModel : ViewModel() {
 
     private val repository = ProductRepository(NetworkModule.apiService)
 
@@ -19,13 +19,13 @@ class CategoryListViewModel : ViewModel() {
 
     private var allProducts: List<ProductModel> = emptyList()
 
-    fun fetchByCategory(category: String) {
+    fun fetchByBrand(brand: String) {
         _productsState.value = Resource.Loading()
         viewModelScope.launch {
             val result = repository.getProducts()
             if (result is Resource.Success) {
                 val filtered = result.data?.filter {
-                    it.category?.equals(category, ignoreCase = true) == true
+                    it.brand?.equals(brand, ignoreCase = true) == true
                 } ?: emptyList()
                 allProducts = filtered
                 _productsState.value = Resource.Success(filtered)

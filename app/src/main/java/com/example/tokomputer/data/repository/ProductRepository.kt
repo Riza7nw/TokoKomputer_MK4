@@ -49,4 +49,30 @@ class ProductRepository(private val apiService: ApiService) {
             Resource.Error("Tidak dapat terhubung ke server: ${e.message}")
         }
     }
+
+    suspend fun getCategories(): Resource<List<String>> {
+        return try {
+            val response = apiService.getCategories()
+            if (response.isSuccessful && response.body()?.success == true) {
+                Resource.Success(response.body()?.data ?: emptyList())
+            } else {
+                Resource.Error("Gagal mengambil kategori")
+            }
+        } catch (e: Exception) {
+            Resource.Error("Tidak dapat terhubung ke server: ${e.message}")
+        }
+    }
+
+    suspend fun getBrands(): Resource<List<String>> {
+        return try {
+            val response = apiService.getBrands()
+            if (response.isSuccessful && response.body()?.success == true) {
+                Resource.Success(response.body()?.data ?: emptyList())
+            } else {
+                Resource.Error("Gagal mengambil brand")
+            }
+        } catch (e: Exception) {
+            Resource.Error("Tidak dapat terhubung ke server: ${e.message}")
+        }
+    }
 }

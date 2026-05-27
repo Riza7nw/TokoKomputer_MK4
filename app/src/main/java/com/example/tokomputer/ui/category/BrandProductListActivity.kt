@@ -24,7 +24,7 @@ import com.example.tokomputer.utils.Extras
 import com.example.tokomputer.utils.Resource
 import com.google.android.material.navigation.NavigationView
 
-class CategoryListActivity : AppCompatActivity() {
+class BrandProductListActivity : AppCompatActivity() {
 
     private lateinit var rvProducts: RecyclerView
     private lateinit var tvTitle: TextView
@@ -32,23 +32,23 @@ class CategoryListActivity : AppCompatActivity() {
     private lateinit var tvEmpty: TextView
     private lateinit var productAdapter: ProductAdapter
 
-    private val viewModel: CategoryListViewModel by viewModels()
+    private val viewModel: BrandListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_category_list)
+        setContentView(R.layout.activity_brand_product_list)
 
-        val category = intent.getStringExtra(Extras.CATEGORY) ?: "Produk"
-        val drawer   = findViewById<DrawerLayout>(R.id.drawerLayoutList)
-        val navView  = findViewById<NavigationView>(R.id.navigationViewList)
-        val btnMenu  = findViewById<ImageButton>(R.id.btnMenu2)
+        val brand   = intent.getStringExtra(Extras.BRAND) ?: "Brand"
+        val drawer  = findViewById<DrawerLayout>(R.id.drawerLayoutBrandList)
+        val navView = findViewById<NavigationView>(R.id.navigationViewBrandList)
+        val btnMenu = findViewById<ImageButton>(R.id.btnMenuBrandList)
 
-        tvTitle     = findViewById(R.id.tvCategoryTitle)
-        rvProducts  = findViewById(R.id.rvCategoryProducts)
-        progressBar = findViewById(R.id.progressBar)
-        tvEmpty     = findViewById(R.id.tvEmpty)
+        tvTitle     = findViewById(R.id.tvBrandTitle)
+        rvProducts  = findViewById(R.id.rvBrandProducts)
+        progressBar = findViewById(R.id.progressBarBrandList)
+        tvEmpty     = findViewById(R.id.tvEmptyBrandList)
 
-        tvTitle.text = category
+        tvTitle.text = brand
 
         btnMenu.setOnClickListener { drawer.openDrawer(navView) }
 
@@ -66,7 +66,7 @@ class CategoryListActivity : AppCompatActivity() {
         rvProducts.layoutManager = GridLayoutManager(this, 2)
         rvProducts.adapter = productAdapter
 
-        viewModel.fetchByCategory(category)
+        viewModel.fetchByBrand(brand)
         observeViewModel()
 
         navView.setNavigationItemSelectedListener { menuItem ->
@@ -107,7 +107,7 @@ class CategoryListActivity : AppCompatActivity() {
                     if (products.isEmpty()) {
                         rvProducts.visibility = View.GONE
                         tvEmpty.visibility    = View.VISIBLE
-                        tvEmpty.text          = "Tidak ada produk di kategori ini"
+                        tvEmpty.text          = "Tidak ada produk untuk brand ini"
                     } else {
                         rvProducts.visibility = View.VISIBLE
                         tvEmpty.visibility    = View.GONE

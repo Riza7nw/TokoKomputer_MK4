@@ -19,6 +19,7 @@ import com.example.tokomputer.data.local.SessionManager
 import com.example.tokomputer.model.ProductModel
 import com.example.tokomputer.ui.about.AboutActivity
 import com.example.tokomputer.ui.auth.LoginActivity
+import com.example.tokomputer.ui.category.BrandsActivity
 import com.example.tokomputer.ui.category.CategoriesActivity
 import com.example.tokomputer.ui.member.MemberActivity
 import com.example.tokomputer.ui.order.OrderActivity
@@ -52,7 +53,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupBackPress() {
         onBackPressedDispatcher.addCallback(this) {
-            // User tekan back di MainActivity = keluar app → clear session
             SessionManager.setAppClosed()
             SessionManager.clearLogin()
             finish()
@@ -110,9 +110,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupNavigation() {
-        btnMenu.setOnClickListener {
-            drawerLayout.openDrawer(navView)
-        }
+        btnMenu.setOnClickListener { drawerLayout.openDrawer(navView) }
 
         btnCart.setOnClickListener {
             if (SessionManager.isLoggedIn()) {
@@ -125,22 +123,17 @@ class MainActivity : AppCompatActivity() {
 
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.nav_home -> drawerLayout.closeDrawers()
-
-                R.id.nav_member -> {
-                    if (SessionManager.isLoggedIn()) {
+                R.id.nav_home       -> drawerLayout.closeDrawers()
+                R.id.nav_member     -> {
+                    if (SessionManager.isLoggedIn())
                         startActivity(Intent(this, MemberActivity::class.java))
-                    } else {
+                    else
                         startActivity(Intent(this, LoginActivity::class.java))
-                    }
                 }
-                R.id.nav_categories -> {
-                    startActivity(Intent(this, CategoriesActivity::class.java))
-                }
-                R.id.nav_tentang -> {
-                    startActivity(Intent(this, AboutActivity::class.java))
-                }
-                R.id.nav_logout -> {
+                R.id.nav_categories -> startActivity(Intent(this, CategoriesActivity::class.java))
+                R.id.nav_brands     -> startActivity(Intent(this, BrandsActivity::class.java))
+                R.id.nav_tentang    -> startActivity(Intent(this, AboutActivity::class.java))
+                R.id.nav_logout     -> {
                     SessionManager.clearLogin()
                     Toast.makeText(this, "Logout berhasil", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, LoginActivity::class.java).apply {
