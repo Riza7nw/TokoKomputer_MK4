@@ -15,58 +15,25 @@ class OtpViewModel : ViewModel() {
 
     private val repository = AuthRepository(NetworkModule.apiService)
 
-    private val _otpState = MutableLiveData<Resource<Unit>>()
-    val otpState: LiveData<Resource<Unit>> = _otpState
+    private val _verifyState = MutableLiveData<Resource<Unit>>()
+    val verifyState: LiveData<Resource<Unit>> = _verifyState
 
     private val _resendState = MutableLiveData<Resource<Unit>>()
     val resendState: LiveData<Resource<Unit>> = _resendState
 
-    // Timer countdown 5 menit = 300 detik
-    private val _timerSeconds = MutableLiveData(300)
+    // Timer countdown
+    private val _timerSeconds = MutableLiveData(300) // 5 menit = 300 detik
     val timerSeconds: LiveData<Int> = _timerSeconds
 
-    private val _isTimerRunning = MutableLiveData(false)
+    private val _isTimerRunning = MutableLiveData(true)
     val isTimerRunning: LiveData<Boolean> = _isTimerRunning
 
     private var timerJob: Job? = null
 
-    // ===== VERIFY OTP =====
-    fun verifyOtp(email: String, otp: String) {
-
-        if (otp.isBlank()) {
-            _otpState.value = Resource.Error("Masukkan kode OTP")
-            return
-        }
-
-        if (otp.length < 6) {
-            _otpState.value = Resource.Error("OTP harus 6 digit")
-            return
-        }
-
-        _otpState.value = Resource.Loading()
-
-        viewModelScope.launch {
-            val result = repository.verifyOtp(email, otp)
-            _otpState.value = result
-        }
+    init {
+        startTimer()
     }
 
-    // ===== RESEND OTP =====
-    fun resendOtp(email: String) {
-        _resendState.value = Resource.Loading()
-
-        viewModelScope.launch {
-            // Register ulang dengan email yang sama tidak cocok
-            // Kita perlu endpoint resend OTP di Laravel
-            // Sementara pakai verifyOtp sebagai placeholder
-            // Nanti akan diupdate setelah endpoint resend dibuat
-            delay(1000)
-            _resendState.value = Resource.Success(Unit)
-            startTimer()
-        }
-    }
-
-    // ===== TIMER =====
     fun startTimer() {
         timerJob?.cancel()
         _timerSeconds.value = 300
@@ -80,6 +47,28 @@ class OtpViewModel : ViewModel() {
                 _timerSeconds.value = seconds
             }
             _isTimerRunning.value = false
+        }
+    }
+
+    fun verifyOtp(email: String, otp: String) {
+        if (otp.length != 6) {
+            _verifyState.value = Resource.Error("OTP harus 6 digit")
+            return
+        }
+        _verifyState.value = Resource.Loading()
+        viewModelScope.launch {
+            _verifyState.value = repository.verifyOtp(email, otp)
+        }
+    }
+
+    fun resendOtp(email: String) {
+        _resendState.value = Resource.Loading()
+        viewModelScope.launch {
+            val result = repository.resendOtp(email)
+            _resendState.value = result
+            if (result is Resource.Success) {
+                startTimer() // Reset timer setelah OTP berhasil dikirim ulang
+            }
         }
     }
 
