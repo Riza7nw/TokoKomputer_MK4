@@ -15,82 +15,88 @@ import com.example.tokomputer.utils.Resource
 
 class OtpActivity : AppCompatActivity() {
 
-    private lateinit var tvEmailInfo: TextView
-    private lateinit var tvTimer: TextView
-    private lateinit var tvResendOtp: TextView
-    private lateinit var tvBackToLogin: TextView
     private lateinit var etOtp: EditText
     private lateinit var btnVerify: Button
+    private lateinit var btnResendOtp: Button
+    private lateinit var tvTimer: TextView
+    private lateinit var tvResendInfo: TextView
+    private lateinit var tvOtpSubtitle: TextView
     private lateinit var progressBar: ProgressBar
 
     private val viewModel: OtpViewModel by viewModels()
-
     private var email: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_otp)
 
-        // Ambil email dari intent
         email = intent.getStringExtra("email") ?: ""
 
         initViews()
         observeViewModel()
         setupClickListeners()
-
-        // Mulai timer saat activity dibuka
-        viewModel.startTimer()
     }
 
     private fun initViews() {
-        tvEmailInfo  = findViewById(R.id.tvEmailInfo)
-        tvTimer      = findViewById(R.id.tvTimer)
-        tvResendOtp  = findViewById(R.id.tvResendOtp)
-        tvBackToLogin = findViewById(R.id.tvBackToLogin)
         etOtp        = findViewById(R.id.etOtp)
         btnVerify    = findViewById(R.id.btnVerify)
+        btnResendOtp = findViewById(R.id.btnResendOtp)
+        tvTimer      = findViewById(R.id.tvTimer)
+        tvResendInfo = findViewById(R.id.tvResendInfo)
+        tvOtpSubtitle = findViewById(R.id.tvOtpSubtitle)
         progressBar  = findViewById(R.id.progressBar)
 
-        // Tampilkan email user
-        tvEmailInfo.text = "Kode OTP telah dikirim ke\n$email"
+        tvOtpSubtitle.text = "Kode OTP telah dikirim ke\n$email"
     }
 
     private fun setupClickListeners() {
 
-        // Tombol Verifikasi
         btnVerify.setOnClickListener {
             val otp = etOtp.text.toString().trim()
             viewModel.verifyOtp(email, otp)
         }
 
-        // Kirim ulang OTP
-        tvResendOtp.setOnClickListener {
-            if (viewModel.isTimerRunning.value == true) {
-                Toast.makeText(
-                    this,
-                    "Tunggu hingga timer habis",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                viewModel.resendOtp(email)
-                Toast.makeText(
-                    this,
-                    "OTP dikirim ulang ke $email",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-
-        // Kembali ke Login
-        tvBackToLogin.setOnClickListener {
-            goToLogin()
+        btnResendOtp.setOnClickListener {
+            viewModel.resendOtp(email)
         }
     }
 
     private fun observeViewModel() {
 
-        // Observe verify OTP
-        viewModel.otpState.observe(this) { state ->
+        // Observe timer
+        viewModel.timerSeconds.observe(this) { seconds ->
+            val menit = seconds / 60
+            val detik = seconds % 60
+            tvTimer.text = String.format("%02d:%02d", menit, detik)
+        }
+
+        // Observe apakah timer masih jalan
+        viewModel.isTimerRunning.observe(this) { isRunning ->
+            if (isRunning) {
+                // Timer masih jalan — tombol resend disable
+                btnResendOtp.isEnabled = false
+                btnResendOtp.backgroundTintList =
+                    android.content.res.ColorStateList.valueOf(
+                        android.graphics.Color.parseColor("#E0E0E0")
+                    )
+                tvResendInfo.text    = "Tombol aktif setelah timer habis"
+                tvTimer.setTextColor(android.graphics.Color.parseColor("#1C3C58"))
+            } else {
+                // Timer habis — tombol resend aktif
+                btnResendOtp.isEnabled = true
+                btnResendOtp.backgroundTintList =
+                    android.content.res.ColorStateList.valueOf(
+                        android.graphics.Color.parseColor("#90CAF9")
+                    )
+                btnResendOtp.setTextColor(android.graphics.Color.WHITE)
+                tvResendInfo.text    = "Kode OTP sudah kadaluarsa"
+                tvTimer.text         = "Expired"
+                tvTimer.setTextColor(android.graphics.Color.parseColor("#E53935"))
+            }
+        }
+
+        // Observe verify state
+        viewModel.verifyState.observe(this) { state ->
             when (state) {
                 is Resource.Loading -> {
                     progressBar.visibility = View.VISIBLE
@@ -102,9 +108,10 @@ class OtpActivity : AppCompatActivity() {
                     Toast.makeText(
                         this,
                         "Email berhasil diverifikasi!",
-                        Toast.LENGTH_SHORT
+                        Toast.LENGTH_LONG
                     ).show()
-                    goToLogin()
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    finish()
                 }
                 is Resource.Error -> {
                     progressBar.visibility = View.GONE
@@ -114,27 +121,28 @@ class OtpActivity : AppCompatActivity() {
             }
         }
 
-        // Observe timer
-        viewModel.timerSeconds.observe(this) { seconds ->
-            val menit  = seconds / 60
-            val detik  = seconds % 60
-            tvTimer.text = "Kode berlaku selama %02d:%02d".format(menit, detik)
-        }
-
-        // Observe timer running — ubah warna resend
-        viewModel.isTimerRunning.observe(this) { isRunning ->
-            tvResendOtp.setTextColor(
-                if (isRunning) {
-                    resources.getColor(android.R.color.darker_gray, null)
-                } else {
-                    resources.getColor(android.R.color.holo_blue_light, null)
+        // Observe resend state
+        viewModel.resendState.observe(this) { state ->
+            when (state) {
+                is Resource.Loading -> {
+                    progressBar.visibility = View.VISIBLE
+                    btnResendOtp.isEnabled = false
                 }
-            )
+                is Resource.Success -> {
+                    progressBar.visibility = View.GONE
+                    Toast.makeText(
+                        this,
+                        "OTP baru telah dikirim ke $email",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    // Timer otomatis reset di ViewModel
+                }
+                is Resource.Error -> {
+                    progressBar.visibility = View.GONE
+                    btnResendOtp.isEnabled = true
+                    Toast.makeText(this, state.message, Toast.LENGTH_LONG).show()
+                }
+            }
         }
-    }
-
-    private fun goToLogin() {
-        startActivity(Intent(this, LoginActivity::class.java))
-        finish()
     }
 }

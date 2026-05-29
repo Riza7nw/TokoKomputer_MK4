@@ -84,6 +84,20 @@ class AuthRepository(private val apiService: ApiService) {
         }
     }
 
+    suspend fun resendOtp(email: String): Resource<Unit> {
+        return try {
+            val response = apiService.resendOtp(mapOf("email" to email))
+            if (response.isSuccessful && response.body()?.success == true) {
+                Resource.Success(Unit)
+            } else {
+                val errorMsg = response.body()?.message ?: "Gagal mengirim ulang OTP"
+                Resource.Error(errorMsg)
+            }
+        } catch (e: Exception) {
+            Resource.Error("Tidak dapat terhubung ke server: ${e.message}")
+        }
+    }
+
     //  LOGOUT
     suspend fun logout(): Resource<Unit> {
         return try {

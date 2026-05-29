@@ -28,6 +28,11 @@ interface ApiService {
         @Body request: LoginRequest
     ): Response<ApiResponse<LoginData>>
 
+    @POST("resend-otp")
+    suspend fun resendOtp(
+        @Body body: Map<String, String>
+    ): Response<ApiResponse<Unit>>
+
     @POST("logout")
     suspend fun logout(): Response<ApiResponse<Unit>>
 
