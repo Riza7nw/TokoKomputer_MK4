@@ -15,7 +15,6 @@
         android:paddingTop="48dp"
         android:paddingBottom="48dp">
 
-        <!-- Logo & Brand -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,7 +40,6 @@
                 android:layout_marginTop="6dp" />
         </LinearLayout>
 
-        <!-- Tab Login / Daftar -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -78,7 +76,6 @@
                 android:stateListAnimator="@null" />
         </LinearLayout>
 
-        <!-- Input Nama -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -95,7 +92,7 @@
             android:layout_height="52dp"
             android:background="@drawable/bg_input"
             android:hint="Nama lengkap Anda"
-            android:hintTextColor="#3D3D50"
+            android:textColorHint="#3D3D50"
             android:inputType="textPersonName"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
@@ -103,7 +100,6 @@
             android:textSize="15sp"
             android:layout_marginBottom="20dp" />
 
-        <!-- Input Email -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -120,7 +116,7 @@
             android:layout_height="52dp"
             android:background="@drawable/bg_input"
             android:hint="contoh@email.com"
-            android:hintTextColor="#3D3D50"
+            android:textColorHint="#3D3D50"
             android:inputType="textEmailAddress"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
@@ -128,7 +124,6 @@
             android:textSize="15sp"
             android:layout_marginBottom="20dp" />
 
-        <!-- Input Password -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -145,7 +140,7 @@
             android:layout_height="52dp"
             android:background="@drawable/bg_input"
             android:hint="Buat password"
-            android:hintTextColor="#3D3D50"
+            android:textColorHint="#3D3D50"
             android:inputType="textPassword"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
@@ -153,7 +148,6 @@
             android:textSize="15sp"
             android:layout_marginBottom="20dp" />
 
-        <!-- Ulangi Password -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -170,7 +164,7 @@
             android:layout_height="52dp"
             android:background="@drawable/bg_input"
             android:hint="Ulangi password"
-            android:hintTextColor="#3D3D50"
+            android:textColorHint="#3D3D50"
             android:inputType="textPassword"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
@@ -178,7 +172,6 @@
             android:textSize="15sp"
             android:layout_marginBottom="20dp" />
 
-        <!-- Input Phone -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -195,7 +188,7 @@
             android:layout_height="52dp"
             android:background="@drawable/bg_input"
             android:hint="08123456789"
-            android:hintTextColor="#3D3D50"
+            android:textColorHint="#3D3D50"
             android:inputType="phone"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
@@ -211,7 +204,6 @@
             android:layout_marginBottom="12dp"
             android:visibility="gone" />
 
-        <!-- Tombol Daftar -->
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="match_parent"
@@ -226,7 +218,6 @@
             android:elevation="0dp"
             android:stateListAnimator="@null" />
 
-        <!-- Divider -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -251,7 +242,6 @@
                 android:background="#1E1E2E" />
         </LinearLayout>
 
-        <!-- Teks Login -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

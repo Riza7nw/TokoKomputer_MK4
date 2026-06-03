@@ -19,14 +19,12 @@
             android:layout_height="110dp"
             android:background="@drawable/bg_circle_outer" />
 
-        <!-- Lingkaran dalam -->
         <View
             android:layout_width="78dp"
             android:layout_height="78dp"
             android:layout_gravity="center"
             android:background="@drawable/bg_circle_inner" />
 
-        <!-- Centang -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,7 +61,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable\/bg_card_dark"
+        android:background="@drawable/bg_card_dark"
         android:orientation="vertical"
         android:padding="20dp"
         android:layout_marginBottom="36dp">
@@ -99,8 +97,11 @@
             </LinearLayout>
         </LinearLayout>
 
-        <View android:layout_width="match_parent" android:layout_height="1dp"
-            android:background="#2A2A3E" android:layout_marginBottom="14dp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#2A2A3E"
+            android:layout_marginBottom="14dp" />
 
         <!-- Metode -->
         <LinearLayout
@@ -125,8 +126,11 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <View android:layout_width="match_parent" android:layout_height="1dp"
-            android:background="#2A2A3E" android:layout_marginBottom="14dp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#2A2A3E"
+            android:layout_marginBottom="14dp" />
 
         <!-- Toko -->
         <LinearLayout

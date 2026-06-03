@@ -17,6 +17,7 @@ import com.example.tokomputer.adapter.ProductAdapter
 import com.example.tokomputer.data.local.SessionManager
 import com.example.tokomputer.ui.about.AboutActivity
 import com.example.tokomputer.ui.auth.LoginActivity
+import com.example.tokomputer.ui.history.TransactionHistoryActivity
 import com.example.tokomputer.ui.main.MainActivity
 import com.example.tokomputer.ui.member.MemberActivity
 import com.example.tokomputer.ui.product.ProductDetailActivity
@@ -74,6 +75,14 @@ class BrandProductListActivity : AppCompatActivity() {
                 R.id.nav_home       -> startActivity(Intent(this, MainActivity::class.java))
                 R.id.nav_categories -> startActivity(Intent(this, CategoriesActivity::class.java))
                 R.id.nav_brands     -> startActivity(Intent(this, BrandsActivity::class.java))
+                R.id.nav_history    -> {
+                    if (SessionManager.isLoggedIn()) {
+                        startActivity(Intent(this, TransactionHistoryActivity::class.java))
+                    } else {
+                        Toast.makeText(this, "Login dulu untuk melihat history", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, LoginActivity::class.java))
+                    }
+                }
                 R.id.nav_member     -> {
                     if (SessionManager.isLoggedIn())
                         startActivity(Intent(this, MemberActivity::class.java))

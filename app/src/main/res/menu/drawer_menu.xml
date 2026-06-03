@@ -4,6 +4,10 @@
         <item android:id="@+id/nav_home"       android:title="Home"        android:icon="@drawable/ic_home" />
         <item android:id="@+id/nav_categories" android:title="Kategori"    android:icon="@drawable/ic_parts" />
         <item android:id="@+id/nav_brands"     android:title="Brand"       android:icon="@drawable/ic_parts" />
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@android:drawable/ic_menu_recent_history"
+            android:title="Transaksi History" />
         <item android:id="@+id/nav_tentang"    android:title="Tentang Kami" android:icon="@drawable/ic_info" />
         <item android:id="@+id/nav_logout"     android:title="Logout"      android:icon="@drawable/ic_logout" />
     </group>

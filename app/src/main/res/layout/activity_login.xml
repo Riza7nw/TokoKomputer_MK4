@@ -16,7 +16,6 @@
         android:paddingTop="48dp"
         android:paddingBottom="48dp">
 
-        <!-- Logo & Brand -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,7 +41,6 @@
                 android:layout_marginTop="6dp" />
         </LinearLayout>
 
-        <!-- Tab Login / Daftar -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -79,7 +77,6 @@
                 android:stateListAnimator="@null" />
         </LinearLayout>
 
-        <!-- Input Email -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -96,7 +93,7 @@
             android:layout_height="52dp"
             android:background="@drawable/bg_input"
             android:hint="contoh@email.com"
-            android:hintTextColor="#3D3D50"
+            android:textColorHint="#3D3D50"
             android:inputType="textEmailAddress"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
@@ -104,7 +101,6 @@
             android:textSize="15sp"
             android:layout_marginBottom="20dp" />
 
-        <!-- Input Password -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -121,7 +117,7 @@
             android:layout_height="52dp"
             android:background="@drawable/bg_input"
             android:hint="Masukkan password"
-            android:hintTextColor="#3D3D50"
+            android:textColorHint="#3D3D50"
             android:inputType="textPassword"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
@@ -129,7 +125,6 @@
             android:textSize="15sp"
             android:layout_marginBottom="10dp" />
 
-        <!-- Lupa Password -->
         <TextView
             android:id="@+id/tvForgotPassword"
             android:layout_width="wrap_content"
@@ -140,7 +135,6 @@
             android:textSize="13sp"
             android:layout_marginBottom="28dp" />
 
-        <!-- Tombol Login -->
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
@@ -163,7 +157,6 @@
             android:layout_marginBottom="16dp"
             android:visibility="gone" />
 
-        <!-- Divider -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -188,7 +181,6 @@
                 android:background="#1E1E2E" />
         </LinearLayout>
 
-        <!-- Teks daftar -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
