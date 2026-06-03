@@ -1,149 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#007DF4"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:padding="24dp">
+    android:background="#0F0F14"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_card"
-        android:elevation="4dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:gravity="center_vertical"
+        android:paddingStart="28dp"
+        android:paddingEnd="28dp"
+        android:paddingTop="48dp"
+        android:paddingBottom="48dp">
 
-        <!-- Judul -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Verifikasi OTP"
-            android:textColor="#333333"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <!-- Subjudul -->
-        <TextView
-            android:id="@+id/tvOtpSubtitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="Kode OTP telah dikirim ke email kamu"
-            android:textColor="#777777"
-            android:textSize="13sp" />
-
-        <!-- Timer -->
+        <!-- Icon & Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:orientation="vertical"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_marginBottom="40dp">
+
+            <!-- Icon lingkaran -->
+            <LinearLayout
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:background="#1A1A24"
+                android:gravity="center"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="✉"
+                    android:textColor="#5B6FFF"
+                    android:textSize="32sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Verifikasi OTP"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvOtpSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Kode OTP telah dikirim ke email kamu"
+                android:textColor="#8A8A9A"
+                android:textSize="14sp"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
+
+        <!-- Timer badge -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1A1A24"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="14dp"
+            android:layout_marginBottom="28dp">
 
             <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:src="@android:drawable/ic_lock_idle_alarm"
-                android:layout_marginEnd="4dp" />
+                android:layout_marginEnd="8dp" />
 
             <TextView
                 android:id="@+id/tvTimer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="05:00"
-                android:textColor="#1C3C58"
-                android:textSize="16sp"
+                android:textColor="#5B6FFF"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="6dp"
                 android:text="tersisa"
-                android:textColor="#777777"
-                android:textSize="13sp" />
-
+                android:textColor="#8A8A9A"
+                android:textSize="14sp" />
         </LinearLayout>
+
+        <!-- Label OTP -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kode OTP"
+            android:textColor="#8A8A9A"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.08"
+            android:layout_marginBottom="8dp" />
 
         <!-- Input OTP -->
         <EditText
             android:id="@+id/etOtp"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="20dp"
+            android:layout_height="64dp"
             android:background="@drawable/bg_input"
             android:gravity="center"
-            android:hint="Masukkan 6 digit OTP"
+            android:hint="· · · · · ·"
+            android:hintTextColor="#3D3D50"
             android:inputType="number"
-            android:letterSpacing="0.1"
+            android:letterSpacing="0.4"
             android:maxLength="6"
-            android:padding="12dp"
-            android:textSize="20sp" />
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColor="#FFFFFF"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="28dp" />
 
-        <!-- Progress -->
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp"
             android:visibility="gone" />
 
         <!-- Tombol Verifikasi -->
         <Button
             android:id="@+id/btnVerify"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="#90CAF9"
-            android:text="Verifikasi"
+            android:layout_height="52dp"
+            android:backgroundTint="#5B6FFF"
+            android:text="Verifikasi Sekarang"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textStyle="bold" />
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp"
+            android:elevation="0dp"
+            android:stateListAnimator="@null" />
 
         <!-- Divider -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            android:background="#E0E0E0" />
+            android:layout_marginBottom="20dp"
+            android:background="#1E1E2E" />
 
-        <!-- Resend OTP -->
+        <!-- Tidak menerima kode -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Tidak menerima kode?"
-            android:textColor="#777777"
-            android:textSize="13sp" />
+            android:textColor="#8A8A9A"
+            android:textSize="13sp"
+            android:layout_marginBottom="10dp" />
 
         <Button
             android:id="@+id/btnResendOtp"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="#E0E0E0"
+            android:layout_height="48dp"
+            android:backgroundTint="#1A1A24"
             android:text="Kirim Ulang OTP"
             android:textAllCaps="false"
-            android:textColor="#333333"
-            android:enabled="false" />
+            android:textColor="#5B6FFF"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:enabled="false"
+            android:elevation="0dp"
+            android:stateListAnimator="@null"
+            android:layout_marginBottom="8dp" />
 
-        <!-- Info timer resend -->
+        <!-- Info resend -->
         <TextView
             android:id="@+id/tvResendInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
             android:gravity="center"
             android:text="Tombol aktif setelah timer habis"
-            android:textColor="#AAAAAA"
-            android:textSize="11sp" />
+            android:textColor="#3D3D50"
+            android:textSize="12sp" />
 
     </LinearLayout>
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>

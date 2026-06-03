@@ -4,46 +4,174 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="24dp"
-    android:background="#F7FFF9">
+    android:background="#0F0F14"
+    android:paddingStart="28dp"
+    android:paddingEnd="28dp">
 
-    <!-- Icon sukses -->
+    <!-- Lingkaran luar -->
+    <FrameLayout
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginBottom="32dp">
+
+        <View
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:background="@drawable/bg_circle_outer" />
+
+        <!-- Lingkaran dalam -->
+        <View
+            android:layout_width="78dp"
+            android:layout_height="78dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_circle_inner" />
+
+        <!-- Centang -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="✓"
+            android:textColor="#5B6FFF"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <!-- Judul -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="✅"
-        android:textSize="64sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Pembayaran Berhasil"
-        android:textSize="22sp"
+        android:text="Pembayaran Berhasil!"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="#1C3C58" />
+        android:layout_marginBottom="10dp" />
 
-    <!-- Info transaksi (diisi dari Activity) -->
+    <!-- Subjudul -->
     <TextView
         android:id="@+id/tvSuccessMessage"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:gravity="center"
-        android:lineSpacingExtra="4dp"
+        android:lineSpacingExtra="5dp"
         android:text="Terima kasih sudah berbelanja di TOKOMPUTER"
-        android:textColor="#333333"
-        android:textSize="14sp" />
+        android:textColor="#8A8A9A"
+        android:textSize="14sp"
+        android:layout_marginBottom="36dp" />
 
+    <!-- Card ringkasan transaksi -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable\/bg_card_dark"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_marginBottom="36dp">
+
+        <!-- Status -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="14dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Status Pembayaran"
+                android:textColor="#8A8A9A"
+                android:textSize="13sp" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:background="#1A2E1A"
+                android:gravity="center"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="✓  Lunas"
+                    android:textColor="#4CAF50"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+            android:background="#2A2A3E" android:layout_marginBottom="14dp" />
+
+        <!-- Metode -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="14dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Metode Bayar"
+                android:textColor="#8A8A9A"
+                android:textSize="13sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Transfer Bank"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+            android:background="#2A2A3E" android:layout_marginBottom="14dp" />
+
+        <!-- Toko -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Toko"
+                android:textColor="#8A8A9A"
+                android:textSize="13sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TOKOMPUTER"
+                android:textColor="#5B6FFF"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Tombol -->
     <Button
         android:id="@+id/btnDone"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:backgroundTint="#5B6FFF"
+        android:text="Kembali ke Beranda"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:elevation="0dp"
+        android:stateListAnimator="@null"
+        android:layout_marginBottom="14dp" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="#1C3C58"
-        android:paddingStart="32dp"
-        android:paddingEnd="32dp"
-        android:text="Kembali ke Beranda"
-        android:textColor="#FFFFFF" />
+        android:text="Pesanan akan segera diproses oleh toko kami"
+        android:textColor="#3D3D50"
+        android:textSize="12sp"
+        android:gravity="center" />
 
 </LinearLayout>

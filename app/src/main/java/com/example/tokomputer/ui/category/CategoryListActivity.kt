@@ -43,7 +43,7 @@ class CategoryListActivity : AppCompatActivity() {
         val navView  = findViewById<NavigationView>(R.id.navigationViewList)
         val btnMenu  = findViewById<ImageButton>(R.id.btnMenu2)
 
-        tvTitle     = findViewById(R.id.tvCategoryTitle)
+        tvTitle     = findViewById(R.id.id_tran_history)
         rvProducts  = findViewById(R.id.rvCategoryProducts)
         progressBar = findViewById(R.id.progressBar)
         tvEmpty     = findViewById(R.id.tvEmpty)

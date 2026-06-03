@@ -4,75 +4,92 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/material_dynamic_secondary10">
+    android:background="#0F0F14">
 
-    <!-- Header dengan tombol Back -->
+    <!-- FIXED HEADER -->
     <LinearLayout
         android:id="@+id/layoutHeader"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:background="@color/material_dynamic_secondary10"
-        android:elevation="4dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="#161622"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageButton
             android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/bg_button_circle"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/bg_icon_button"
             android:contentDescription="Back"
             android:src="@android:drawable/ic_media_previous"
             android:padding="8dp"
-            app:tint="@color/white" />
+            app:tint="#FFFFFF" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="12dp"
             android:text="Detail Produk"
-            android:textColor="@color/bg_light"
-            android:textSize="18sp"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
+        <LinearLayout
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/bg_icon_button"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="♡"
+                android:textColor="#8A8A9A"
+                android:textSize="16sp" />
+        </LinearLayout>
     </LinearLayout>
 
-    <!-- Footer -->
+    <!-- FIXED FOOTER -->
     <LinearLayout
         android:id="@+id/footer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/material_dynamic_primary20"
+        android:background="#0F0F14"
         android:orientation="vertical"
-        android:padding="10dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Jl. Mangga Dua No. 12, RT 04/RW 06, Kelurahan Mangga Dua Selatan, DKI Jakarta 10730  |  Kontak: 085647746236  |  Email: tokomputer@gmail.co.id  |  Senin–Sabtu: 09.00–21.00 WIB"
+            android:text="Jl. Mangga Dua No.12, Jakarta 10730  |  CS: 085647746236  |  tokomputer@gmail.co.id  |  Sen–Sab: 09.00–21.00"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="#2A2A3E"
             android:textSize="8sp" />
     </LinearLayout>
 
-    <!-- Bottom Action Buttons -->
+    <!-- FIXED BOTTOM ACTIONS -->
     <LinearLayout
         android:id="@+id/layoutBottomActions"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="12dp"
-        android:background="@color/material_dynamic_secondary10"
-        android:elevation="8dp"
+        android:background="#161622"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:gravity="center_vertical"
         app:layout_constraintBottom_toTopOf="@id/footer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -80,29 +97,34 @@
         <Button
             android:id="@+id/btnAddToCart"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="#1C3C58"
-            android:text="🛒 Keranjang"
-            android:textColor="#FFFFFF"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/bg_button_secondary"
+            android:text="🛒  Keranjang"
+            android:textColor="#5B6FFF"
             android:textAllCaps="false"
-            android:textStyle="bold" />
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:elevation="0dp"
+            android:stateListAnimator="@null" />
 
         <Button
             android:id="@+id/btnBuyNow"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
-            android:backgroundTint="#E53935"
-            android:text="⚡ Beli Sekarang"
+            android:background="@drawable/bg_button_primary"
+            android:text="⚡  Beli Sekarang"
             android:textColor="#FFFFFF"
             android:textAllCaps="false"
-            android:textStyle="bold" />
-
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:elevation="0dp"
+            android:stateListAnimator="@null" />
     </LinearLayout>
 
-    <!-- ScrollView — antara header dan bottom actions -->
+    <!-- SCROLLABLE CONTENT -->
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -117,78 +139,196 @@
             android:orientation="vertical">
 
             <!-- Gambar Produk -->
-            <ImageView
-                android:id="@+id/imgProduct"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="260dp"
-                android:adjustViewBounds="true"
-                android:background="#1C3C58"
-                android:contentDescription="@string/app_name"
-                android:scaleType="centerCrop" />
+                android:background="#161622">
 
+                <ImageView
+                    android:id="@+id/imgProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:padding="16dp" />
+            </FrameLayout>
+
+            <!-- Info Utama -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="8dp">
 
-                <!-- Nama Produk -->
+                <!-- Brand badge -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="26dp"
+                    android:background="@drawable/bg_card_surface_small"
+                    android:gravity="center"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:layout_marginBottom="10dp">
+                    <TextView
+                        android:id="@+id/tvProductBrand"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#5B6FFF"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.06" />
+                </LinearLayout>
+
+                <!-- Nama -->
                 <TextView
                     android:id="@+id/tvProductName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/bg_light"
+                    android:textColor="#FFFFFF"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:lineSpacingExtra="3dp"
+                    android:layout_marginBottom="12dp" />
 
-                <!-- Brand Produk -->
-                <TextView
-                    android:id="@+id/tvProductBrand"
+                <!-- Harga + Rating -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textColor="#90CAF9"
-                    android:textSize="14sp" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
 
-                <!-- Harga Produk -->
-                <TextView
-                    android:id="@+id/tvProductPrice"
+                    <TextView
+                        android:id="@+id/tvProductPrice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="#5B6FFF"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:background="@drawable/bg_card_surface_small"
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="★ 4.8"
+                            android:textColor="#FFB84D"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#1E1E2E"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- 3 Highlight Fitur -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_card_dark"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="12dp"
+                    android:layout_marginEnd="6dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🔧" android:textSize="20sp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Garansi Resmi" android:textColor="#8A8A9A" android:textSize="9sp" android:layout_marginTop="4dp" android:gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_card_dark"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="12dp"
+                    android:layout_marginEnd="6dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🚚" android:textSize="20sp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Gratis Ongkir" android:textColor="#8A8A9A" android:textSize="9sp" android:layout_marginTop="4dp" android:gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_card_dark"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="↩" android:textColor="#8A8A9A" android:textSize="20sp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Retur 7 Hari" android:textColor="#8A8A9A" android:textSize="9sp" android:layout_marginTop="4dp" android:gravity="center" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Section Deskripsi -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card_dark"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:textColor="#E53935"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
 
-                <!-- Divider -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="#DDDDDD" />
+                    <View
+                        android:layout_width="3dp"
+                        android:layout_height="16dp"
+                        android:background="@drawable/bg_divider_accent"
+                        android:layout_marginEnd="10dp" />
 
-                <!-- Label Deskripsi -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="📝 Deskripsi:"
-                    android:textColor="@color/bg_light"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Deskripsi Produk"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-                <!-- Deskripsi Produk -->
                 <TextView
                     android:id="@+id/tvProductDesc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="16dp"
-                    android:lineSpacingExtra="4dp"
-                    android:textColor="@color/bg_light"
-                    android:textSize="14sp" />
-
+                    android:lineSpacingExtra="5dp"
+                    android:textColor="#8A8A9A"
+                    android:textSize="13sp" />
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

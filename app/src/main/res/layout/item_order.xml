@@ -1,91 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    card_view:cardCornerRadius="8dp"
-    card_view:cardElevation="2dp"
+    android:background="#161622"
+    android:orientation="vertical"
     android:layout_marginBottom="8dp"
     android:foreground="?attr/selectableItemBackground">
 
+    <!-- ===== ROW ATAS: Gambar + Info ===== -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="12dp">
+        android:padding="14dp">
 
-        <ImageView
-            android:id="@+id/ivOrderImage"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/monitor251"
-            android:contentDescription="@string/product_image" />
+        <!-- Product Image -->
+        <LinearLayout
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:background="#1A1A24"
+            android:gravity="center">
 
+            <ImageView
+                android:id="@+id/ivOrderImage"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/monitor251"
+                android:contentDescription="@string/product_image" />
+        </LinearLayout>
+
+        <!-- Nama + Harga + Subtotal -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
             android:paddingStart="12dp"
-            android:paddingEnd="12dp">
+            android:paddingEnd="4dp">
 
             <TextView
                 android:id="@+id/tvOrderName"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/order_default_name"
+                android:textColor="#FFFFFF"
                 android:textStyle="bold"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:maxLines="2"
+                android:ellipsize="end" />
 
             <TextView
                 android:id="@+id/tvOrderPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/order_default_price"
-                android:textSize="13sp"
-                android:textColor="#333333"
+                android:textSize="12sp"
+                android:textColor="#8A8A9A"
                 android:layout_marginTop="4dp" />
 
+            <!-- Subtotal inline -->
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnDecrease"
-                    android:layout_width="20dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/order_btn_decrease" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp">
 
                 <TextView
-                    android:id="@+id/tvQuantity"
-                    android:layout_width="28dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:gravity="center"
-                    android:text="@string/order_qty_default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Subtotal  "
+                    android:textColor="#8A8A9A"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/tvItemTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/order_item_total"
+                    android:textStyle="bold"
+                    android:textColor="#5B6FFF"
                     android:textSize="14sp" />
-
-                <Button
-                    android:id="@+id/btnIncrease"
-                    android:layout_width="20dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/order_btn_increase" />
-
             </LinearLayout>
         </LinearLayout>
+    </LinearLayout>
+
+    <!-- ===== DIVIDER ===== -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#2A2A3E" />
+
+    <!-- ===== ROW BAWAH: Qty Controls ===== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp">
 
         <TextView
-            android:id="@+id/tvItemTotal"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="@string/order_item_total"
+            android:layout_height="wrap_content"
+            android:text="Jumlah"
+            android:textColor="#8A8A9A"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btnDecrease"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:text="@string/order_btn_decrease"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:backgroundTint="#2A2A3E"
+            android:padding="0dp"
+            android:textAllCaps="false"
+            android:elevation="0dp"
+            android:stateListAnimator="@null" />
+
+        <TextView
+            android:id="@+id/tvQuantity"
+            android:layout_width="40dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:text="@string/order_qty_default"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
             android:textStyle="bold"
-            android:textColor="#333333" />
+            android:background="#1A1A24" />
+
+        <Button
+            android:id="@+id/btnIncrease"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:text="@string/order_btn_increase"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:backgroundTint="#5B6FFF"
+            android:padding="0dp"
+            android:textAllCaps="false"
+            android:elevation="0dp"
+            android:stateListAnimator="@null" />
 
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+
+</LinearLayout>

@@ -88,6 +88,8 @@
 
     <!-- About page strings -->
     <string name="about_title">Tentang Kami – TokoMputer</string>
+    <string name="about_title_visi_misi">Visi &amp; Misi</string>
+    <string name="about_title_advantages">Keunggulan Kami</string>
     <string name="about_description">TokoMputer adalah toko komputer yang menjual komputer, laptop, dan seluruh komponen komputer. Berdiri sejak tahun 2020. Fokus pada kualitas, keaslian produk, dan layanan cepat.</string>
     <string name="about_vision">Menjadi toko komputer paling terpercaya dan lengkap untuk semua kebutuhan teknologi.</string>
     <string name="misi_label">Misi</string>
