@@ -15,6 +15,7 @@ import com.example.tokomputer.R
 import com.example.tokomputer.data.local.SessionManager
 import com.example.tokomputer.ui.about.AboutActivity
 import com.example.tokomputer.ui.auth.LoginActivity
+import com.example.tokomputer.ui.history.TransactionHistoryActivity
 import com.example.tokomputer.ui.main.MainActivity
 import com.example.tokomputer.ui.member.MemberActivity
 import com.example.tokomputer.ui.order.OrderActivity
@@ -36,7 +37,9 @@ class CategoriesActivity : AppCompatActivity() {
         val btnCart     = findViewById<ImageButton>(R.id.btnCartCat)
         val container   = findViewById<LinearLayout>(R.id.categoryContainer)
         val progressBar = findViewById<ProgressBar>(R.id.progressBarCat)
-        val tvEmpty     = findViewById<TextView>(R.id.tvEmptyCat)
+
+        val layoutEmpty = findViewById<LinearLayout>(R.id.layoutEmptyCat)
+        val tvEmptyMsg  = findViewById<TextView>(R.id.tvEmptyMsgCat)
 
         btnMenu.setOnClickListener { drawer.openDrawer(navView) }
 
@@ -54,24 +57,25 @@ class CategoriesActivity : AppCompatActivity() {
                 is Resource.Loading -> {
                     progressBar.visibility = View.VISIBLE
                     container.visibility   = View.GONE
-                    tvEmpty.visibility     = View.GONE
+                    layoutEmpty.visibility = View.GONE
                 }
                 is Resource.Success -> {
                     progressBar.visibility = View.GONE
                     val categories = state.data ?: emptyList()
                     if (categories.isEmpty()) {
-                        tvEmpty.visibility   = View.VISIBLE
-                        container.visibility = View.GONE
+                        layoutEmpty.visibility = View.VISIBLE
+                        tvEmptyMsg.text        = "Tidak ada kategori"
+                        container.visibility   = View.GONE
                     } else {
-                        tvEmpty.visibility   = View.GONE
-                        container.visibility = View.VISIBLE
+                        layoutEmpty.visibility = View.GONE
+                        container.visibility   = View.VISIBLE
                         buildCategoryCards(container, categories)
                     }
                 }
                 is Resource.Error -> {
                     progressBar.visibility = View.GONE
-                    tvEmpty.visibility     = View.VISIBLE
-                    tvEmpty.text           = state.message
+                    layoutEmpty.visibility = View.VISIBLE
+                    tvEmptyMsg.text        = state.message
                 }
             }
         }
@@ -81,6 +85,14 @@ class CategoriesActivity : AppCompatActivity() {
                 R.id.nav_home       -> startActivity(Intent(this, MainActivity::class.java))
                 R.id.nav_categories -> { /* sudah di sini */ }
                 R.id.nav_brands     -> startActivity(Intent(this, BrandsActivity::class.java))
+                R.id.nav_history    -> {
+                    if (SessionManager.isLoggedIn()) {
+                        startActivity(Intent(this, TransactionHistoryActivity::class.java))
+                    } else {
+                        Toast.makeText(this, "Login dulu untuk melihat history", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, LoginActivity::class.java))
+                    }
+                }
                 R.id.nav_member     -> {
                     if (SessionManager.isLoggedIn())
                         startActivity(Intent(this, MemberActivity::class.java))

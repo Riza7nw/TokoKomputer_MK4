@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- ===== HERO HEADER ===== -->
+        <!-- HERO HEADER -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,7 +21,6 @@
             android:paddingTop="40dp"
             android:paddingBottom="28dp">
 
-            <!-- Avatar lingkaran besar -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -65,7 +64,6 @@
                         android:textColor="#8A8A9A"
                         android:textSize="13sp" />
 
-                    <!-- Badge Member -->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="26dp"
@@ -182,7 +180,7 @@
             android:layout_marginTop="24dp"
             android:visibility="gone" />
 
-        <!-- ===== SECTION: INFO AKUN ===== -->
+        <!-- SECTION: INFO AKUN -->
         <LinearLayout
             android:id="@+id/layoutContent"
             android:layout_width="match_parent"
@@ -190,7 +188,6 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-            <!-- Label section -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -210,8 +207,6 @@
                 android:layout_height="wrap_content"
                 android:background="#161622"
                 android:orientation="vertical"
-                android:marginStart="16dp"
-                android:marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp">
 
@@ -246,7 +241,11 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#2A2A3E" android:marginStart="46dp" android:layout_marginStart="46dp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#2A2A3E"
+                    android:layout_marginStart="46dp" />
 
                 <!-- Email -->
                 <LinearLayout
@@ -279,7 +278,11 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#2A2A3E" android:marginStart="46dp" android:layout_marginStart="46dp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#2A2A3E"
+                    android:layout_marginStart="46dp" />
 
                 <!-- Phone -->
                 <LinearLayout
@@ -313,7 +316,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Label section -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -365,7 +367,11 @@
                         android:textSize="18sp" />
                 </LinearLayout>
 
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#2A2A3E" android:layout_marginStart="46dp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#2A2A3E"
+                    android:layout_marginStart="46dp" />
 
                 <!-- Bantuan -->
                 <LinearLayout
@@ -411,7 +417,7 @@
             android:textSize="14sp"
             android:visibility="gone" />
 
-        <!-- ===== TOMBOL ===== -->
+        <!-- TOMBOL -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

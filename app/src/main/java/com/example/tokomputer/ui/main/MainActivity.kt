@@ -21,6 +21,7 @@ import com.example.tokomputer.ui.about.AboutActivity
 import com.example.tokomputer.ui.auth.LoginActivity
 import com.example.tokomputer.ui.category.BrandsActivity
 import com.example.tokomputer.ui.category.CategoriesActivity
+import com.example.tokomputer.ui.history.TransactionHistoryActivity
 import com.example.tokomputer.ui.member.MemberActivity
 import com.example.tokomputer.ui.order.OrderActivity
 import com.example.tokomputer.ui.product.ProductDetailActivity
@@ -132,6 +133,14 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.nav_categories -> startActivity(Intent(this, CategoriesActivity::class.java))
                 R.id.nav_brands     -> startActivity(Intent(this, BrandsActivity::class.java))
+                R.id.nav_history    -> {
+                    if (SessionManager.isLoggedIn()) {
+                        startActivity(Intent(this, TransactionHistoryActivity::class.java))
+                    } else {
+                        Toast.makeText(this, "Login dulu untuk melihat history", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, LoginActivity::class.java))
+                    }
+                }
                 R.id.nav_tentang    -> startActivity(Intent(this, AboutActivity::class.java))
                 R.id.nav_logout     -> {
                     SessionManager.clearLogin()

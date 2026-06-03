@@ -18,7 +18,6 @@
         android:theme="@style/Theme.TOKOMPUTER"
         tools:targetApi="31">
 
-        <!-- Halaman utama -->
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="true">
@@ -28,7 +27,6 @@
             </intent-filter>
         </activity>
 
-        <!-- Auth -->
         <activity
             android:name=".ui.auth.LoginActivity"
             android:exported="false" />
@@ -39,17 +37,14 @@
             android:name=".ui.auth.OtpActivity"
             android:exported="false" />
 
-        <!-- Member -->
         <activity
             android:name=".ui.member.MemberActivity"
             android:exported="false" />
 
-        <!-- Product -->
         <activity
             android:name=".ui.product.ProductDetailActivity"
             android:exported="false" />
 
-        <!-- Category -->
         <activity
             android:name=".ui.category.CategoriesActivity"
             android:exported="false" />
@@ -60,17 +55,18 @@
             android:name=".ui.category.BrandListActivity"
             android:exported="false" />
 
-        <!-- Order -->
         <activity
             android:name=".ui.order.OrderActivity"
             android:exported="false" />
 
-        <!-- Payment -->
         <activity
             android:name=".ui.payment.PaymentSuccessActivity"
             android:exported="false" />
 
-        <!-- About -->
+        <activity
+            android:name=".ui.history.TransactionHistoryActivity"
+            android:exported="false" />
+
         <activity
             android:name=".ui.about.AboutActivity"
             android:exported="false" />
